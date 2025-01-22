@@ -9,6 +9,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
                    _In_ LPSTR lpCmdLine, _In_ int nCmdShow) {
   App app;
 
+  app.RegisterEntity(100, 100, PLAYER_TEXTURE);
+
   while (app.ShouldKeepRunning()) {
     app.Run();
   }
