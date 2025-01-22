@@ -22,8 +22,7 @@ target_compile_options(compiler_flags INTERFACE
     "$<${msvc_cxx}:$<BUILD_INTERFACE:-W3>>"
 )
 
-
-add_executable(ShootEmUp)
+add_executable(ShootEmUp WIN32)
 
 target_include_directories(ShootEmUp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/inc "${SDL2_INCLUDE_DIRS}")
 
@@ -35,7 +34,18 @@ else()
   target_link_libraries(ShootEmUp PRIVATE ${SDL2_LIBRARIES})
 endif()
 
-target_sources(ShootEmUp 
+target_sources(ShootEmUp
   PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/app.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/string_utils.cpp
 )
+
+if(WIN32)
+add_custom_command(
+    TARGET ShootEmUp POST_BUILD
+    COMMAND "${CMAKE_COMMAND}" -E copy_if_different "$<TARGET_FILE:SDL2::SDL2>" "$<TARGET_FILE:SDL2_image::SDL2_image>" "$<TARGET_FILE:SDL2_ttf::SDL2_ttf>" "$<TARGET_FILE_DIR:ShootEmUp>"
+    VERBATIM
+    COMMENT "Copying SDL redistributables"
+)
+endif()
