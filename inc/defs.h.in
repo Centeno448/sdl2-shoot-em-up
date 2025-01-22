@@ -1,4 +1,5 @@
 #pragma once
 
+#define PLAYER_TEXTURE "@PLAYER_TEXTURE@"
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 720

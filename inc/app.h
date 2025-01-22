@@ -15,6 +15,7 @@ typedef std::unique_ptr<SDL_Window, decltype(&SDLWindowDeleter)>
 
 class App {
  public:
+  friend class Entity;
   App()
       : renderer_(nullptr, &SDLRendererDeleter),
         window_(nullptr, &SDLWindowDeleter) {
@@ -27,14 +28,14 @@ class App {
 
   bool ShouldKeepRunning();
 
- private:
-  bool Init();
-
   void HandleInput();
 
   void PrepareScene();
 
   void PresentScene();
+
+ private:
+  bool Init();
 
   SDLRendererUniquePtr renderer_;
   SDLWindowUniquePtr window_;
