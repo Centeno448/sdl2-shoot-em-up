@@ -2,7 +2,10 @@
 
 #include <SDL.h>
 
+#include <forward_list>
 #include <memory>
+
+#include "entity.h"
 
 void SDLRendererDeleter(SDL_Renderer* renderer);
 
@@ -26,7 +29,14 @@ class App {
 
   void Run();
 
+  SDL_Renderer* GetRenderer();
+
   bool ShouldKeepRunning();
+
+  bool RegisterEntity(int x, int y, const std::string path);
+
+ private:
+  bool Init();
 
   void HandleInput();
 
@@ -34,10 +44,8 @@ class App {
 
   void PresentScene();
 
- private:
-  bool Init();
-
   SDLRendererUniquePtr renderer_;
   SDLWindowUniquePtr window_;
+  std::forward_list<Entity> entities_;
   bool should_keep_running_;
 };

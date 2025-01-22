@@ -72,12 +72,26 @@ void App::PrepareScene() {
   SDL_RenderClear(renderer_.get());
 }
 
+SDL_Renderer* App::GetRenderer() { return renderer_.get(); }
+
+bool App::RegisterEntity(int x, int y, const std::string path) {
+  entities_.emplace_front(x, y);
+
+  entities_.begin()->SetTexture(GetRenderer(), path);
+
+  return true;
+}
+
 void App::PresentScene() { SDL_RenderPresent(renderer_.get()); }
 
 void App::Run() {
   PrepareScene();
 
   HandleInput();
+
+  for (Entity& e : entities_) {
+    e.DrawTexture(GetRenderer());
+  }
 
   PresentScene();
 

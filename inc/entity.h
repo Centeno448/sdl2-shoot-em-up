@@ -5,8 +5,6 @@
 #include <memory>
 #include <string>
 
-#include "app.h"
-
 void SDLTextureDeleter(SDL_Texture* renderer);
 
 typedef std::unique_ptr<SDL_Texture, decltype(&SDLTextureDeleter)>
@@ -14,18 +12,14 @@ typedef std::unique_ptr<SDL_Texture, decltype(&SDLTextureDeleter)>
 
 class Entity {
  public:
-  Entity(int x, int y, const App& app, const std::string& texture_path)
-      : x_(x), y_(y), app_(app), texture_(nullptr, &SDLTextureDeleter) {
-    SetTexture(texture_path);
-  };
+  Entity(int x, int y) : x_(x), y_(y), texture_(nullptr, &SDLTextureDeleter) {};
 
   int x_;
   int y_;
 
-  void DrawTexture();
+  void DrawTexture(SDL_Renderer* const);
+  bool SetTexture(SDL_Renderer* const, const std::string path);
 
  private:
-  bool SetTexture(const std::string path);
-  const App& app_;
   SDLTextureUniquePtr texture_;
 };
