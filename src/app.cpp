@@ -61,6 +61,14 @@ void App::HandleInput() {
         should_keep_running_ = false;
         break;
 
+      case SDL_KEYDOWN:
+        HandleKeyDown(&event.key);
+        break;
+
+      case SDL_KEYUP:
+        HandleKeyUp(&event.key);
+        break;
+
       default:
         break;
     }
@@ -70,6 +78,50 @@ void App::HandleInput() {
 void App::PrepareScene() {
   SDL_SetRenderDrawColor(renderer_.get(), 96, 128, 255, 255);
   SDL_RenderClear(renderer_.get());
+}
+
+void App::HandleKeyDown(SDL_KeyboardEvent* event) {
+  if (event->repeat) {
+    return;
+  }
+
+  if (event->keysym.scancode == SDL_SCANCODE_W) {
+    up_ = true;
+  }
+
+  if (event->keysym.scancode == SDL_SCANCODE_A) {
+    left_ = true;
+  }
+
+  if (event->keysym.scancode == SDL_SCANCODE_S) {
+    down_ = true;
+  }
+
+  if (event->keysym.scancode == SDL_SCANCODE_D) {
+    right_ = true;
+  }
+}
+
+void App::HandleKeyUp(SDL_KeyboardEvent* event) {
+  if (event->repeat) {
+    return;
+  }
+
+  if (event->keysym.scancode == SDL_SCANCODE_W) {
+    up_ = false;
+  }
+
+  if (event->keysym.scancode == SDL_SCANCODE_A) {
+    left_ = false;
+  }
+
+  if (event->keysym.scancode == SDL_SCANCODE_S) {
+    down_ = false;
+  }
+
+  if (event->keysym.scancode == SDL_SCANCODE_D) {
+    right_ = false;
+  }
 }
 
 SDL_Renderer* App::GetRenderer() { return renderer_.get(); }
@@ -89,6 +141,8 @@ void App::Run() {
 
   HandleInput();
 
+  HandlePlayerMovement();
+
   for (Entity& e : entities_) {
     e.DrawTexture(GetRenderer());
   }
@@ -96,4 +150,22 @@ void App::Run() {
   PresentScene();
 
   SDL_Delay(16);
+}
+
+void App::HandlePlayerMovement() {
+  if (up_) {
+    entities_.begin()->y_ -= 4;
+  }
+
+  if (down_) {
+    entities_.begin()->y_ += 4;
+  }
+
+  if (left_) {
+    entities_.begin()->x_ -= 4;
+  }
+
+  if (right_) {
+    entities_.begin()->x_ += 4;
+  }
 }

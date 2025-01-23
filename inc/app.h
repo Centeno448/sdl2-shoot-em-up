@@ -21,7 +21,12 @@ class App {
   friend class Entity;
   App()
       : renderer_(nullptr, &SDLRendererDeleter),
-        window_(nullptr, &SDLWindowDeleter) {
+        window_(nullptr, &SDLWindowDeleter),
+        up_(false),
+        left_(false),
+        right_(false),
+        down_(false),
+        should_keep_running_(true) {
     Init();
   };
 
@@ -35,10 +40,21 @@ class App {
 
   bool RegisterEntity(int x, int y, const std::string path);
 
+  bool up_;
+  bool left_;
+  bool right_;
+  bool down_;
+
  private:
   bool Init();
 
   void HandleInput();
+
+  void HandleKeyDown(SDL_KeyboardEvent* event);
+
+  void HandleKeyUp(SDL_KeyboardEvent* event);
+
+  void HandlePlayerMovement();
 
   void PrepareScene();
 
