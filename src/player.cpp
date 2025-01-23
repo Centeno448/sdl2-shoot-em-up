@@ -4,6 +4,7 @@
 
 #include "defs.h"
 #include "input_manager.h"
+#include "world.h"
 
 void Player::DoLogic() {
   dy_ = dx_ = 0;
@@ -22,6 +23,10 @@ void Player::DoLogic() {
 
   if (InputManager::inputs_.at(SDL_SCANCODE_D)) {
     dx_ = PLAYER_SPEED;
+  }
+
+  if (InputManager::inputs_.at(SDL_SCANCODE_K)) {
+    --health_;
   }
 
   x_ += dx_;

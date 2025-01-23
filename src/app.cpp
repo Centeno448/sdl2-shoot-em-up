@@ -8,6 +8,7 @@
 #include "defs.h"
 #include "input_manager.h"
 #include "string_utils.h"
+#include "world.h"
 
 void SDLRendererDeleter(SDL_Renderer* renderer) {
   SDL_DestroyRenderer(renderer);
@@ -28,6 +29,8 @@ void App::Run() {
 
   DoLogic();
 
+  DrawScene();
+
   PresentScene();
 
   SDL_Delay(16);  // ~60fps
@@ -37,27 +40,10 @@ SDL_Renderer* const App::GetRenderer() { return renderer_.get(); }
 
 bool App::ShouldKeepRunning() { return should_keep_running_; }
 
-void App::RegisterEntity(int x, int y, const std::string path) {
-  // entities_.emplace_front(x, y);
-
-  // entities_.begin()->SetTexture(GetRenderer(), path);
-
-  // return true;
-}
-
-void App::RegisterPlayer(int x, int y) {
-  player_.reset(new Player(100, 100));
-
-  std::string texture_id = player_->GetTextureId();
-
-  auto texture_from_manager = TextureManager::GetTextureById(texture_id);
-
-  if (texture_from_manager == nullptr) {
-    player_->texture_ =
-        TextureManager::LoadTextureById(GetRenderer(), texture_id);
-  } else {
-    player_->texture_ = texture_from_manager;
-  }
+void App::RegisterPlayer(float x, float y) {
+  auto shared_player = std::make_shared<Player>(x, y);
+  World::entities_.emplace_front(
+      std::static_pointer_cast<Entity>(shared_player));
 }
 
 bool App::Init() {
@@ -126,12 +112,21 @@ void App::PrepareScene() {
 void App::PresentScene() { SDL_RenderPresent(renderer_.get()); }
 
 void App::DoLogic() {
-  if (player_ != nullptr) {
-    player_->DoLogic();
-    player_->Draw(GetRenderer());
+  auto current = World::entities_.begin();
+  while (current != World::entities_.end()) {
+    if ((*current)->IsDead()) {
+      auto to_delete = (*current);
+      ++current;
+      World::entities_.remove(to_delete);
+    } else {
+      (*current)->DoLogic();
+      ++current;
+    }
   }
+}
 
-  // for (Entity& e : entities_) {
-  //   e.Draw(GetRenderer());
-  // }
+void App::DrawScene() {
+  for (EntitySharedPtr e : World::entities_) {
+    e->Draw(GetRenderer());
+  }
 }

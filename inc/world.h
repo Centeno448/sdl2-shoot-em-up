@@ -4,8 +4,5 @@
 
 class World {
  public:
-  void InitWorld();
-
-  std::forward_list<Entity> figthers_;
-  std::forward_list<Entity> bullets_;
+  static std::forward_list<EntitySharedPtr> entities_;
 };

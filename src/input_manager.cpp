@@ -30,8 +30,6 @@ void InputManager::HandleKeyUp(SDL_KeyboardEvent* event) {
 }
 
 InputMap InputManager::inputs_ = {
-    {SDL_SCANCODE_W, false},
-    {SDL_SCANCODE_A, false},
-    {SDL_SCANCODE_S, false},
-    {SDL_SCANCODE_D, false},
+    {SDL_SCANCODE_W, false}, {SDL_SCANCODE_A, false}, {SDL_SCANCODE_S, false},
+    {SDL_SCANCODE_D, false}, {SDL_SCANCODE_K, false},
 };

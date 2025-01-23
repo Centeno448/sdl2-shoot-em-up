@@ -28,3 +28,5 @@ void Entity::Draw(SDL_Renderer* const renderer) {
 std::string Entity::GetTextureId() { return std::string("IDK"); }
 
 void Entity::DoLogic() {}
+
+bool Entity::IsDead() { return health_ == 0; }

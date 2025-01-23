@@ -9,7 +9,9 @@
 
 class Entity {
  public:
-  Entity(float x, float y) : x_(x), y_(y) {};
+  Entity(float x, float y) : x_(x), y_(y), health_(1) {};
+
+  ~Entity() { texture_.reset(); }
 
   float x_;
   float y_;
@@ -21,10 +23,15 @@ class Entity {
 
   float health_;
 
+  virtual bool IsDead();
+
   virtual void Draw(SDL_Renderer* const);
 
   virtual void DoLogic();
 
   virtual std::string GetTextureId();
+
   SDLTextureSharedPtr texture_ = nullptr;
 };
+
+typedef std::shared_ptr<Entity> EntitySharedPtr;
