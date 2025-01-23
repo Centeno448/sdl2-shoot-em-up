@@ -41,9 +41,8 @@ SDL_Renderer* const App::GetRenderer() { return renderer_.get(); }
 bool App::ShouldKeepRunning() { return should_keep_running_; }
 
 void App::RegisterPlayer(float x, float y) {
-  auto shared_player = std::make_shared<Player>(x, y);
-  World::entities_.emplace_front(
-      std::static_pointer_cast<Entity>(shared_player));
+  World::AddEntityToWorld<Player>(
+      [x, y]() { return std::make_shared<Player>(x, y); });
 }
 
 bool App::Init() {
