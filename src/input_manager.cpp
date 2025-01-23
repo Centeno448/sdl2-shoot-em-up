@@ -14,7 +14,7 @@ void InputManager::HandleKeyDown(SDL_KeyboardEvent* event) {
     return;
   }
 
-  InputManager::inputs_[key_code] = true;
+  inputs_[key_code] = true;
 }
 
 void InputManager::HandleKeyUp(SDL_KeyboardEvent* event) {
@@ -26,7 +26,7 @@ void InputManager::HandleKeyUp(SDL_KeyboardEvent* event) {
     return;
   }
 
-  InputManager::inputs_[event->keysym.scancode] = false;
+  inputs_[event->keysym.scancode] = false;
 }
 
 InputMap InputManager::inputs_ = {
