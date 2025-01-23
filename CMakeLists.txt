@@ -54,6 +54,7 @@ target_sources(ShootEmUp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/string_utils.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/texture_manager.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/world.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/bullet.cpp
 )
 
 if(WIN32)

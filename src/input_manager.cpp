@@ -22,14 +22,16 @@ void InputManager::HandleKeyUp(SDL_KeyboardEvent* event) {
     return;
   }
 
-  if (event->keysym.scancode > MAX_KEYBOARD_KEYS) {
+  SDL_Scancode key_code = event->keysym.scancode;
+
+  if (key_code > MAX_KEYBOARD_KEYS) {
     return;
   }
 
-  inputs_[event->keysym.scancode] = false;
+  inputs_[key_code] = false;
 }
 
 InputMap InputManager::inputs_ = {
-    {SDL_SCANCODE_W, false}, {SDL_SCANCODE_A, false}, {SDL_SCANCODE_S, false},
-    {SDL_SCANCODE_D, false}, {SDL_SCANCODE_K, false},
-};
+    {SDL_SCANCODE_W, false}, {SDL_SCANCODE_A, false},
+    {SDL_SCANCODE_S, false}, {SDL_SCANCODE_D, false},
+    {SDL_SCANCODE_K, false}, {SDL_SCANCODE_SPACE, false}};

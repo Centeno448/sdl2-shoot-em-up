@@ -12,4 +12,6 @@ class Player : public Entity {
 
  private:
   inline static const std::string texture_id_ = PLAYER_TEXTURE_ID;
+
+  void Shoot();
 };
