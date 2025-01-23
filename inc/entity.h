@@ -5,13 +5,11 @@
 #include <memory>
 #include <string>
 
-void SDLTextureDeleter(SDL_Texture* renderer);
-
-typedef std::shared_ptr<SDL_Texture> SDLTextureSharedPtr;
+#include "texture_manager.h"
 
 class Entity {
  public:
-  Entity(float x, float y) : x_(x), y_(y), texture_(nullptr) {};
+  Entity(float x, float y) : x_(x), y_(y) {};
 
   float x_;
   float y_;
@@ -27,8 +25,6 @@ class Entity {
 
   virtual void DoLogic();
 
-  void SetTexture(SDL_Texture* texture);
-
- private:
-  SDLTextureSharedPtr texture_;
+  virtual std::string GetTextureId();
+  SDLTextureSharedPtr texture_ = nullptr;
 };

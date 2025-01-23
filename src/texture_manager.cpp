@@ -20,14 +20,15 @@ SDLTextureSharedPtr TextureManager::GetTextureById(std::string id) {
   return nullptr;
 }
 
-void TextureManager::LoadTextureById(SDL_Renderer* const renderer,
-                                     std::string id) {
+SDLTextureSharedPtr TextureManager::LoadTextureById(
+    SDL_Renderer* const renderer, std::string id) {
   std::string path = texture_map_.at(id);
   SDL_Texture* texture = IMG_LoadTexture(renderer, path.c_str());
   loaded_textures_.emplace_back(id, texture);
+  return GetTextureById(id);
 }
 
 std::vector<Texture> TextureManager::loaded_textures_ = {};
 
 std::map<std::string, std::string> TextureManager::texture_map_ = {
-    {"PLYR", PLAYER_TEXTURE}, {"BLLT", BULLET_TEXTURE}};
+    {PLAYER_TEXTURE_ID, PLAYER_TEXTURE}, {BULLET_TEXTURE_ID, BULLET_TEXTURE}};

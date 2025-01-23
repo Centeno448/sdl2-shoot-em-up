@@ -24,8 +24,8 @@ class TextureManager {
 
   static std::map<std::string, std::string> texture_map_;
 
-  static void LoadTextureById(SDL_Renderer* const renderer, std::string id);
-
  public:
+  static SDLTextureSharedPtr LoadTextureById(SDL_Renderer* const renderer,
+                                             std::string id);
   static SDLTextureSharedPtr GetTextureById(std::string id);
 };

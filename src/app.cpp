@@ -48,7 +48,16 @@ void App::RegisterEntity(int x, int y, const std::string path) {
 void App::RegisterPlayer(int x, int y) {
   player_.reset(new Player(100, 100));
 
-  player_->SetTexture(IMG_LoadTexture(GetRenderer(), PLAYER_TEXTURE));
+  std::string texture_id = player_->GetTextureId();
+
+  auto texture_from_manager = TextureManager::GetTextureById(texture_id);
+
+  if (texture_from_manager == nullptr) {
+    player_->texture_ =
+        TextureManager::LoadTextureById(GetRenderer(), texture_id);
+  } else {
+    player_->texture_ = texture_from_manager;
+  }
 }
 
 bool App::Init() {

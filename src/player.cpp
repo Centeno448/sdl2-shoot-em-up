@@ -27,3 +27,5 @@ void Player::DoLogic() {
   x_ += dx_;
   y_ += dy_;
 }
+
+std::string Player::GetTextureId() { return texture_id_; }
