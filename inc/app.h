@@ -34,11 +34,12 @@ class App {
 
   void Run();
 
-  SDL_Renderer* GetRenderer();
+  SDL_Renderer* const GetRenderer();
 
   bool ShouldKeepRunning();
 
   bool RegisterEntity(int x, int y, const std::string path);
+  void RegisterPlayer(int x, int y);
 
   bool up_;
   bool left_;
@@ -62,6 +63,7 @@ class App {
 
   SDLRendererUniquePtr renderer_;
   SDLWindowUniquePtr window_;
+  std::unique_ptr<Entity> player_;
   std::forward_list<Entity> entities_;
   bool should_keep_running_;
 };

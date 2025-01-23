@@ -1,6 +1,7 @@
 #include "app.h"
 
 #include <format>
+#include <memory>
 
 #include "defs.h"
 #include "string_utils.h"
@@ -17,7 +18,41 @@ App::~App() {
   SDL_Quit();
 }
 
+void App::Run() {
+  PrepareScene();
+
+  HandleInput();
+
+  if (player_ != nullptr) {
+    HandlePlayerMovement();
+    player_->DrawTexture(GetRenderer());
+  }
+
+  for (Entity& e : entities_) {
+    e.DrawTexture(GetRenderer());
+  }
+
+  PresentScene();
+
+  SDL_Delay(16);  // ~60fps
+}
+
+SDL_Renderer* const App::GetRenderer() { return renderer_.get(); }
+
 bool App::ShouldKeepRunning() { return should_keep_running_; }
+
+bool App::RegisterEntity(int x, int y, const std::string path) {
+  entities_.emplace_front(x, y);
+
+  entities_.begin()->SetTexture(GetRenderer(), path);
+
+  return true;
+}
+
+void App::RegisterPlayer(int x, int y) {
+  player_.reset(new Entity(100, 100));
+  player_->SetTexture(GetRenderer(), PLAYER_TEXTURE);
+}
 
 bool App::Init() {
   int renderer_flags = SDL_RENDERER_ACCELERATED;
@@ -75,11 +110,6 @@ void App::HandleInput() {
   }
 }
 
-void App::PrepareScene() {
-  SDL_SetRenderDrawColor(renderer_.get(), 96, 128, 255, 255);
-  SDL_RenderClear(renderer_.get());
-}
-
 void App::HandleKeyDown(SDL_KeyboardEvent* event) {
   if (event->repeat) {
     return;
@@ -124,48 +154,27 @@ void App::HandleKeyUp(SDL_KeyboardEvent* event) {
   }
 }
 
-SDL_Renderer* App::GetRenderer() { return renderer_.get(); }
-
-bool App::RegisterEntity(int x, int y, const std::string path) {
-  entities_.emplace_front(x, y);
-
-  entities_.begin()->SetTexture(GetRenderer(), path);
-
-  return true;
-}
-
-void App::PresentScene() { SDL_RenderPresent(renderer_.get()); }
-
-void App::Run() {
-  PrepareScene();
-
-  HandleInput();
-
-  HandlePlayerMovement();
-
-  for (Entity& e : entities_) {
-    e.DrawTexture(GetRenderer());
-  }
-
-  PresentScene();
-
-  SDL_Delay(16);
-}
-
 void App::HandlePlayerMovement() {
   if (up_) {
-    entities_.begin()->y_ -= 4;
+    player_->y_ -= 4;
   }
 
   if (down_) {
-    entities_.begin()->y_ += 4;
+    player_->y_ += 4;
   }
 
   if (left_) {
-    entities_.begin()->x_ -= 4;
+    player_->x_ -= 4;
   }
 
   if (right_) {
-    entities_.begin()->x_ += 4;
+    player_->x_ += 4;
   }
 }
+
+void App::PrepareScene() {
+  SDL_SetRenderDrawColor(renderer_.get(), 96, 128, 255, 255);
+  SDL_RenderClear(renderer_.get());
+}
+
+void App::PresentScene() { SDL_RenderPresent(renderer_.get()); }
