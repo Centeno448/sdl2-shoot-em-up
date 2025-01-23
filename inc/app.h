@@ -5,7 +5,9 @@
 #include <forward_list>
 #include <memory>
 
+#include "defs.h"
 #include "entity.h"
+#include "player.h"
 
 void SDLRendererDeleter(SDL_Renderer* renderer);
 
@@ -22,10 +24,6 @@ class App {
   App()
       : renderer_(nullptr, &SDLRendererDeleter),
         window_(nullptr, &SDLWindowDeleter),
-        up_(false),
-        left_(false),
-        right_(false),
-        down_(false),
         should_keep_running_(true) {
     Init();
   };
@@ -38,32 +36,23 @@ class App {
 
   bool ShouldKeepRunning();
 
-  bool RegisterEntity(int x, int y, const std::string path);
+  void RegisterEntity(int x, int y, const std::string path);
   void RegisterPlayer(int x, int y);
-
-  bool up_;
-  bool left_;
-  bool right_;
-  bool down_;
 
  private:
   bool Init();
 
-  void HandleInput();
-
-  void HandleKeyDown(SDL_KeyboardEvent* event);
-
-  void HandleKeyUp(SDL_KeyboardEvent* event);
-
-  void HandlePlayerMovement();
+  void HandleEvents();
 
   void PrepareScene();
+
+  void DoLogic();
 
   void PresentScene();
 
   SDLRendererUniquePtr renderer_;
   SDLWindowUniquePtr window_;
-  std::unique_ptr<Entity> player_;
+  std::unique_ptr<Player> player_;
   std::forward_list<Entity> entities_;
   bool should_keep_running_;
 };

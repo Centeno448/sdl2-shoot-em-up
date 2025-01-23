@@ -28,6 +28,7 @@ set(GFX_PREFIX "/gfx")
 set(GFX_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}${GFX_PREFIX}")
 
 set(PLAYER_TEXTURE "${GFX_FOLDER}/player.png")
+set(BULLET_TEXTURE "${GFX_FOLDER}/playerBullet.png")
 
 set(SHOOTEMUP_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/inc")
 
@@ -45,10 +46,12 @@ endif()
 
 target_sources(ShootEmUp
   PRIVATE
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/app.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/string_utils.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/entity.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/input_manager.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/player.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/string_utils.cpp
 )
 
 if(WIN32)

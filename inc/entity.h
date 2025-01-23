@@ -7,19 +7,28 @@
 
 void SDLTextureDeleter(SDL_Texture* renderer);
 
-typedef std::unique_ptr<SDL_Texture, decltype(&SDLTextureDeleter)>
-    SDLTextureUniquePtr;
+typedef std::shared_ptr<SDL_Texture> SDLTextureSharedPtr;
 
 class Entity {
  public:
-  Entity(int x, int y) : x_(x), y_(y), texture_(nullptr, &SDLTextureDeleter) {};
+  Entity(float x, float y) : x_(x), y_(y), texture_(nullptr) {};
 
-  int x_;
-  int y_;
+  float x_;
+  float y_;
+  float dy_ = 0;
+  float dx_ = 0;
 
-  void DrawTexture(SDL_Renderer* const);
-  bool SetTexture(SDL_Renderer* const, const std::string path);
+  int w_ = 0;
+  int h_ = 0;
+
+  float health_;
+
+  virtual void Draw(SDL_Renderer* const);
+
+  virtual void DoLogic();
+
+  void SetTexture(SDL_Texture* texture);
 
  private:
-  SDLTextureUniquePtr texture_;
+  SDLTextureSharedPtr texture_;
 };

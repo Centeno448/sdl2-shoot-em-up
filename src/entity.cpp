@@ -8,21 +8,11 @@
 
 void SDLTextureDeleter(SDL_Texture* texture) { SDL_DestroyTexture(texture); }
 
-bool Entity::SetTexture(SDL_Renderer* const renderer, const std::string path) {
-  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO,
-                 "Loading %s", path.c_str());
-
-  texture_.reset(IMG_LoadTexture(renderer, path.c_str()));
-
-  if (!texture_) {
-    StringUtils::LogError(std::format("Failed to load texture {}", path));
-    return false;
-  }
-
-  return true;
+void Entity::SetTexture(SDL_Texture* texture) {
+  texture_.reset(texture, &SDLTextureDeleter);
 }
 
-void Entity::DrawTexture(SDL_Renderer* const renderer) {
+void Entity::Draw(SDL_Renderer* const renderer) {
   SDL_Rect dest;
 
   dest.x = x_;
@@ -32,3 +22,5 @@ void Entity::DrawTexture(SDL_Renderer* const renderer) {
 
   SDL_RenderCopy(renderer, texture_.get(), NULL, &dest);
 }
+
+void Entity::DoLogic() {}
