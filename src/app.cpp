@@ -7,7 +7,7 @@
 
 #include "defs.h"
 #include "input_manager.h"
-#include "string_utils.h"
+#include "log.h"
 #include "world.h"
 
 void SDLRendererDeleter(SDL_Renderer* renderer) {
@@ -51,7 +51,7 @@ bool App::Init() {
   int window_flags = 0;
 
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-    StringUtils::LogError(
+    Log::Error(
         std::format("Failed to initialize SDL with error: {}", SDL_GetError()));
     return false;
   }
@@ -61,8 +61,8 @@ bool App::Init() {
                                  SCREEN_HEIGHT, window_flags));
 
   if (!window_) {
-    StringUtils::LogError(std::format(
-        "Failed to create SDL window with error: {}", SDL_GetError()));
+    Log::Error(std::format("Failed to create SDL window with error: {}",
+                           SDL_GetError()));
     return false;
   }
 
@@ -71,8 +71,8 @@ bool App::Init() {
   renderer_.reset(SDL_CreateRenderer(window_.get(), -1, renderer_flags));
 
   if (!renderer_) {
-    StringUtils::LogError(std::format(
-        "Failed to create SDL renderer with error: {}", SDL_GetError()));
+    Log::Error(std::format("Failed to create SDL renderer with error: {}",
+                           SDL_GetError()));
     return false;
   }
 

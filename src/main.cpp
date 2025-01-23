@@ -1,6 +1,6 @@
 #include "app.h"
 #include "entity.h"
-#include "string_utils.h"
+#include "log.h"
 
 #if _WIN32
 #include <Windows.h>

@@ -27,5 +27,6 @@ class TextureManager {
  public:
   static SDLTextureSharedPtr LoadTextureById(SDL_Renderer* const renderer,
                                              std::string id);
+
   static SDLTextureSharedPtr GetTextureById(std::string id);
 };

@@ -6,7 +6,7 @@
 #include <format>
 
 #include "defs.h"
-#include "string_utils.h"
+#include "log.h"
 
 void SDLTextureDeleter(SDL_Texture* texture) { SDL_DestroyTexture(texture); }
 
@@ -25,8 +25,9 @@ SDLTextureSharedPtr TextureManager::GetTextureById(std::string id) {
 SDLTextureSharedPtr TextureManager::LoadTextureById(
     SDL_Renderer* const renderer, std::string id) {
   std::string path = texture_map_.at(id);
-  StringUtils::LogInfo(
-      std::format("Loading texture {} with path {}", id, path));
+
+  Log::Info(std::format("Loading texture {} with path {}", id, path));
+
   SDL_Texture* texture = IMG_LoadTexture(renderer, path.c_str());
   loaded_textures_.emplace_back(id, texture);
   return GetTextureById(id);

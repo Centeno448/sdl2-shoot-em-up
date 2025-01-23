@@ -5,10 +5,15 @@
 #include "bullet.h"
 #include "defs.h"
 #include "input_manager.h"
+#include "log.h"
 #include "world.h"
 
 void Player::DoLogic() {
   dy_ = dx_ = 0;
+
+  if (reload_frames_ > 0) {
+    --reload_frames_;
+  }
 
   if (InputManager::inputs_.at(SDL_SCANCODE_W)) {
     dy_ = -PLAYER_SPEED;
@@ -30,7 +35,7 @@ void Player::DoLogic() {
     --health_;
   }
 
-  if (InputManager::inputs_.at(SDL_SCANCODE_SPACE)) {
+  if (InputManager::inputs_.at(SDL_SCANCODE_SPACE) && reload_frames_ == 0) {
     Shoot();
   }
 
@@ -39,9 +44,14 @@ void Player::DoLogic() {
 }
 
 void Player::Shoot() {
-  auto shared_bullet = std::make_shared<Bullet>(x_, y_);
-  World::entities_.emplace_front(
-      std::static_pointer_cast<Entity>(shared_bullet));
+  // Spawn bullet
+  EntitySharedPtr bullet = World::AddEntityToWorld<Bullet>(
+      [this]() { return std::make_shared<Bullet>(x_ + (h_ / 2), y_); });
+
+  bullet->y_ += (h_ / 2) - (bullet->h_ / 2);
+
+  // Set firing cooldown
+  reload_frames_ = 8;
 }
 
 std::string Player::GetTextureId() { return texture_id_; }

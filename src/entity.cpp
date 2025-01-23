@@ -18,6 +18,8 @@ void Entity::Draw(SDL_Renderer* const renderer) {
     } else {
       texture_ = texture_from_manager;
     }
+
+    SDL_QueryTexture(texture_.get(), NULL, NULL, &w_, &h_);
   }
 
   SDL_QueryTexture(texture_.get(), NULL, NULL, &dest.w, &dest.h);

@@ -4,7 +4,7 @@
 class Player : public Entity {
  public:
   Player(float x, float y) : Entity(x, y) {};
-  int reload_;
+  int reload_frames_ = 0;
 
   void DoLogic() override;
 

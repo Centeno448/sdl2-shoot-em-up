@@ -1,7 +1,7 @@
 #include "input_manager.h"
 
 #include "defs.h"
-#include "string_utils.h"
+#include "log.h"
 
 void InputManager::HandleKeyDown(SDL_KeyboardEvent* event) {
   if (event->repeat) {
