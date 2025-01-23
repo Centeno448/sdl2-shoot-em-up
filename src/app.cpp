@@ -84,6 +84,8 @@ bool App::Init() {
     return false;
   }
 
+  RegisterPlayer(100, 100);
+
   return true;
 }
 
