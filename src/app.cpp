@@ -8,13 +8,8 @@
 #include "defs.h"
 #include "input_manager.h"
 #include "log.h"
+#include "sdl_wrappers.h"
 #include "world.h"
-
-void SDLRendererDeleter(SDL_Renderer* renderer) {
-  SDL_DestroyRenderer(renderer);
-}
-
-void SDLWindowDeleter(SDL_Window* window) { SDL_DestroyWindow(window); }
 
 App::~App() {
   renderer_.reset();
@@ -41,8 +36,12 @@ SDL_Renderer* const App::GetRenderer() { return renderer_.get(); }
 bool App::ShouldKeepRunning() { return should_keep_running_; }
 
 void App::RegisterPlayer(float x, float y) {
-  World::AddEntityToWorld<Player>(
+  EntitySharedPtr entity = World::AddEntityToWorld<Player>(
       [x, y]() { return std::make_shared<Player>(x, y); });
+
+  if (entity == nullptr) {
+    StopApp("Player entity creation failed. See error output above");
+  }
 }
 
 bool App::Init() {
@@ -67,13 +66,16 @@ bool App::Init() {
 
   SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
 
-  renderer_.reset(SDL_CreateRenderer(window_.get(), -1, renderer_flags));
+  renderer_.reset(SDL_CreateRenderer(window_.get(), -1, renderer_flags),
+                  &SDLRendererDeleter);
 
   if (!renderer_) {
     Log::Error(std::format("Failed to create SDL renderer with error: {}",
                            SDL_GetError()));
     return false;
   }
+
+  TextureManager::StaticInit(renderer_);
 
   RegisterPlayer(100, 100);
 
@@ -129,3 +131,13 @@ void App::DrawScene() {
     e->Draw(GetRenderer());
   }
 }
+
+void App::StopApp(std::string error) {
+  Log::Error(std::format("Stopping app due to unrecoverable error: {}", error));
+  unrecoverable_ = true;
+  should_keep_running_ = false;
+}
+
+bool App::unrecoverable_ = false;
+
+bool App::should_keep_running_ = true;

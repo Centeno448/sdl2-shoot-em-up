@@ -5,9 +5,7 @@
 #include <string>
 #include <vector>
 
-void SDLTextureDeleter(SDL_Texture* texture);
-
-typedef std::shared_ptr<SDL_Texture> SDLTextureSharedPtr;
+#include "sdl_wrappers.h"
 
 struct Texture {
   Texture(std::string id, SDL_Texture* texture) : id_(id) {
@@ -24,9 +22,14 @@ class TextureManager {
 
   static std::map<std::string, std::string> texture_map_;
 
+  static SDLRendererSharedPtr renderer_;
+
  public:
-  static SDLTextureSharedPtr LoadTextureById(SDL_Renderer* const renderer,
-                                             std::string id);
+  static SDL_Renderer* const GetRenderer();
+
+  static void StaticInit(SDLRendererSharedPtr renderer);
+
+  static SDLTextureSharedPtr LoadTextureById(std::string id);
 
   static SDLTextureSharedPtr GetTextureById(std::string id);
 };

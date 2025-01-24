@@ -8,7 +8,9 @@
 #include "defs.h"
 #include "log.h"
 
-void SDLTextureDeleter(SDL_Texture* texture) { SDL_DestroyTexture(texture); }
+void TextureManager::StaticInit(SDLRendererSharedPtr renderer) {
+  renderer_ = renderer;
+}
 
 SDLTextureSharedPtr TextureManager::GetTextureById(std::string id) {
   auto found =
@@ -19,21 +21,34 @@ SDLTextureSharedPtr TextureManager::GetTextureById(std::string id) {
     return found->texture_;
   }
 
+  Log::Error(std::format("Failed to get texture {}. Texture not found", id));
+
   return nullptr;
 }
 
-SDLTextureSharedPtr TextureManager::LoadTextureById(
-    SDL_Renderer* const renderer, std::string id) {
+SDLTextureSharedPtr TextureManager::LoadTextureById(std::string id) {
+  if (!renderer_) {
+    Log::Error(std::format(
+        "Failed to load texture {}. No renderer set in TextureManager!", id));
+    return nullptr;
+  }
+
   std::string path = texture_map_.at(id);
 
   Log::Info(std::format("Loading texture {} with path {}", id, path));
 
-  SDL_Texture* texture = IMG_LoadTexture(renderer, path.c_str());
-  loaded_textures_.emplace_back(id, texture);
-  return GetTextureById(id);
+  SDL_Texture* t = IMG_LoadTexture(GetRenderer(), path.c_str());
+
+  loaded_textures_.emplace_back(id, t);
+
+  return loaded_textures_.back().texture_;
 }
+
+SDL_Renderer* const TextureManager::GetRenderer() { return renderer_.get(); }
 
 std::vector<Texture> TextureManager::loaded_textures_ = {};
 
 std::map<std::string, std::string> TextureManager::texture_map_ = {
     {PLAYER_TEXTURE_ID, PLAYER_TEXTURE}, {BULLET_TEXTURE_ID, BULLET_TEXTURE}};
+
+SDLRendererSharedPtr TextureManager::renderer_ = nullptr;

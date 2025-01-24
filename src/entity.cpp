@@ -2,6 +2,8 @@
 
 #include <SDL_image.h>
 
+#include "log.h"
+
 void Entity::Draw(SDL_Renderer* const renderer) {
   SDL_Rect dest;
 
@@ -9,17 +11,8 @@ void Entity::Draw(SDL_Renderer* const renderer) {
   dest.y = y_;
 
   if (texture_ == nullptr) {
-    std::string texture_id = GetTextureId();
-
-    auto texture_from_manager = TextureManager::GetTextureById(texture_id);
-
-    if (texture_from_manager == nullptr) {
-      texture_ = TextureManager::LoadTextureById(renderer, texture_id);
-    } else {
-      texture_ = texture_from_manager;
-    }
-
-    SDL_QueryTexture(texture_.get(), NULL, NULL, &w_, &h_);
+    Log::Error(std::format("Texture not set for {}", GetTextureId()));
+    return;
   }
 
   SDL_QueryTexture(texture_.get(), NULL, NULL, &dest.w, &dest.h);
@@ -32,3 +25,7 @@ std::string Entity::GetTextureId() { return std::string("IDK"); }
 void Entity::DoLogic() {}
 
 bool Entity::IsDead() { return health_ == 0; }
+
+bool Entity::IsTextureLoaded() { return true; }
+
+void Entity::SetTextureLoaded(bool is_loaded) {}

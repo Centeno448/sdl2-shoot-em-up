@@ -10,8 +10,14 @@ class Player : public Entity {
 
   std::string GetTextureId() override;
 
+  bool IsTextureLoaded() override;
+
+  void SetTextureLoaded(bool is_loaded) override;
+
  private:
   inline static const std::string texture_id_ = PLAYER_TEXTURE_ID;
+
+  static bool is_texture_loaded_;
 
   void Shoot();
 };

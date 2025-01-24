@@ -8,23 +8,14 @@
 #include "defs.h"
 #include "entity.h"
 #include "player.h"
-
-void SDLRendererDeleter(SDL_Renderer* renderer);
-
-void SDLWindowDeleter(SDL_Window* window);
-
-typedef std::unique_ptr<SDL_Renderer, decltype(&SDLRendererDeleter)>
-    SDLRendererUniquePtr;
-typedef std::unique_ptr<SDL_Window, decltype(&SDLWindowDeleter)>
-    SDLWindowUniquePtr;
+#include "sdl_wrappers.h"
 
 class App {
  public:
   friend class Entity;
   App()
       : renderer_(nullptr, &SDLRendererDeleter),
-        window_(nullptr, &SDLWindowDeleter),
-        should_keep_running_(true) {
+        window_(nullptr, &SDLWindowDeleter) {
     Init();
   };
 
@@ -37,6 +28,10 @@ class App {
   bool ShouldKeepRunning();
 
   void RegisterPlayer(float x, float y);
+
+  static void StopApp(std::string reason);
+
+  static bool unrecoverable_;
 
  private:
   bool Init();
@@ -51,7 +46,7 @@ class App {
 
   void PresentScene();
 
-  SDLRendererUniquePtr renderer_;
+  SDLRendererSharedPtr renderer_;
   SDLWindowUniquePtr window_;
-  bool should_keep_running_;
+  static bool should_keep_running_;
 };

@@ -48,6 +48,8 @@ void Player::Shoot() {
   EntitySharedPtr bullet = World::AddEntityToWorld<Bullet>(
       [this]() { return std::make_shared<Bullet>(x_ + (h_ / 2), y_); });
 
+  // TODO: Stop app on failure to spawn bullet
+
   bullet->y_ += (h_ / 2) - (bullet->h_ / 2);
 
   // Set firing cooldown
@@ -55,3 +57,11 @@ void Player::Shoot() {
 }
 
 std::string Player::GetTextureId() { return texture_id_; }
+
+bool Player::IsTextureLoaded() { return is_texture_loaded_; }
+
+void Player::SetTextureLoaded(bool is_loaded) {
+  is_texture_loaded_ = is_loaded;
+}
+
+bool Player::is_texture_loaded_ = false;

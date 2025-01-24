@@ -29,6 +29,10 @@ class Entity {
 
   virtual void DoLogic();
 
+  virtual bool IsTextureLoaded();
+
+  virtual void SetTextureLoaded(bool is_loaded);
+
   virtual std::string GetTextureId();
 
   SDLTextureSharedPtr texture_ = nullptr;
