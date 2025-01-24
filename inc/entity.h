@@ -35,6 +35,8 @@ class Entity {
 
   virtual std::string GetTextureId();
 
+  virtual std::string GetCollisionLayer();
+
   SDLTextureSharedPtr texture_ = nullptr;
 };
 

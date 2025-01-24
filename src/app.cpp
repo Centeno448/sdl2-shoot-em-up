@@ -5,6 +5,7 @@
 #include <format>
 #include <memory>
 
+#include "collision_manager.h"
 #include "defs.h"
 #include "enemy.h"
 #include "input_manager.h"
@@ -81,7 +82,7 @@ bool App::Init() {
 
   RegisterPlayer(100, 100);
 
-  RegisterTimerCallback(60, false, &Enemy::RegisterEnemy);
+  RegisterTimerCallback(60, true, &Enemy::RegisterEnemy);
 
   return true;
 }
@@ -143,6 +144,10 @@ void App::DoLogic() {
       auto to_delete = (*current_entity);
       ++current_entity;
       World::entities_.remove(to_delete);
+      auto collision_layer = to_delete->GetCollisionLayer();
+      if (collision_layer.size()) {
+        CollisionManager::layers_.at(collision_layer).remove(to_delete);
+      }
     } else {
       (*current_entity)->DoLogic();
       ++current_entity;

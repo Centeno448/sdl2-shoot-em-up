@@ -29,3 +29,5 @@ bool Entity::IsDead() { return health_ == 0; }
 bool Entity::IsTextureLoaded() { return true; }
 
 void Entity::SetTextureLoaded(bool is_loaded) {}
+
+std::string Entity::GetCollisionLayer() { return std::string(); }

@@ -1,5 +1,6 @@
 #include "enemy.h"
 
+#include "collision_manager.h"
 #include "world.h"
 
 void Enemy::DoLogic() {
@@ -23,4 +24,8 @@ bool Enemy::is_texture_loaded_ = false;
 void Enemy::RegisterEnemy() {
   EntitySharedPtr entity = World::AddEntityToWorld<Enemy>(
       []() { return std::make_shared<Enemy>(); });
+
+  CollisionManager::layers_.at(BULLET_TEXTURE_ID).push_front(entity);
 }
+
+std::string Enemy::GetCollisionLayer() { return collides_with_; }

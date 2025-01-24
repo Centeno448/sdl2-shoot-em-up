@@ -22,8 +22,12 @@ class Enemy : public Entity {
 
   static void RegisterEnemy();
 
+  std::string GetCollisionLayer() override;
+
  private:
   inline static const std::string texture_id_ = ENEMY_TEXTURE_ID;
+
+  inline static const std::string collides_with_ = BULLET_TEXTURE_ID;
 
   static bool is_texture_loaded_;
 };
