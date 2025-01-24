@@ -28,4 +28,10 @@ void Enemy::RegisterEnemy() {
   CollisionManager::layers_.at(BULLET_TEXTURE_ID).push_front(entity);
 }
 
+void Enemy::HandleCollision(EntitySharedPtr collided_with) {
+  if (collided_with->GetTextureId() == "BLLT") {
+    --health_;
+  }
+};
+
 std::string Enemy::GetCollisionLayer() { return collides_with_; }

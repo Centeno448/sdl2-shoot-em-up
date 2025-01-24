@@ -16,4 +16,10 @@ void Bullet::SetTextureLoaded(bool is_loaded) {
   is_texture_loaded_ = is_loaded;
 };
 
+void Bullet::HandleCollision(EntitySharedPtr collided_with) {
+  if (collided_with->GetTextureId() == "ENMY") {
+    --health_;
+  }
+};
+
 bool Bullet::is_texture_loaded_ = false;

@@ -31,3 +31,5 @@ bool Entity::IsTextureLoaded() { return true; }
 void Entity::SetTextureLoaded(bool is_loaded) {}
 
 std::string Entity::GetCollisionLayer() { return std::string(); }
+
+void Entity::HandleCollision(EntitySharedPtr collied_with) {}

@@ -15,6 +15,8 @@ class Bullet : public Entity {
 
   void SetTextureLoaded(bool is_loaded) override;
 
+  void HandleCollision(EntitySharedPtr collided_with) override;
+
  private:
   inline static const std::string texture_id_ = BULLET_TEXTURE_ID;
   static bool is_texture_loaded_;

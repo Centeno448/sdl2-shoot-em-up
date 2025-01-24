@@ -12,4 +12,9 @@ typedef std::map<std::string, std::forward_list<EntitySharedPtr>>
 class CollisionManager {
  public:
   static CollisionLayerMap layers_;
+
+  static void CheckCollision(EntitySharedPtr entity);
+
+ private:
+  static bool DetermineCollision(EntitySharedPtr lhs, EntitySharedPtr rhs);
 };

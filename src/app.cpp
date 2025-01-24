@@ -82,7 +82,7 @@ bool App::Init() {
 
   RegisterPlayer(100, 100);
 
-  RegisterTimerCallback(60, true, &Enemy::RegisterEnemy);
+  RegisterTimerCallback(60, false, &Enemy::RegisterEnemy);
 
   return true;
 }
@@ -141,15 +141,16 @@ void App::DoLogic() {
   auto current_entity = World::entities_.begin();
   while (current_entity != World::entities_.end()) {
     if ((*current_entity)->IsDead()) {
-      auto to_delete = (*current_entity);
+      EntitySharedPtr to_delete = (*current_entity);
       ++current_entity;
       World::entities_.remove(to_delete);
-      auto collision_layer = to_delete->GetCollisionLayer();
+      std::string collision_layer = to_delete->GetCollisionLayer();
       if (collision_layer.size()) {
         CollisionManager::layers_.at(collision_layer).remove(to_delete);
       }
     } else {
       (*current_entity)->DoLogic();
+      CollisionManager::CheckCollision(*current_entity);
       ++current_entity;
     }
   }

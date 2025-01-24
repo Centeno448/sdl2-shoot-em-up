@@ -20,6 +20,8 @@ class Enemy : public Entity {
 
   void SetTextureLoaded(bool is_loaded) override;
 
+  void HandleCollision(EntitySharedPtr collided_with) override;
+
   static void RegisterEnemy();
 
   std::string GetCollisionLayer() override;
