@@ -6,8 +6,10 @@
 #include <memory>
 
 #include "defs.h"
+#include "enemy.h"
 #include "input_manager.h"
 #include "log.h"
+#include "player.h"
 #include "sdl_wrappers.h"
 #include "world.h"
 
@@ -79,6 +81,8 @@ bool App::Init() {
 
   RegisterPlayer(100, 100);
 
+  RegisterTimerCallback(60, false, &Enemy::RegisterEnemy);
+
   return true;
 }
 
@@ -113,15 +117,35 @@ void App::PrepareScene() {
 void App::PresentScene() { SDL_RenderPresent(renderer_.get()); }
 
 void App::DoLogic() {
-  auto current = World::entities_.begin();
-  while (current != World::entities_.end()) {
-    if ((*current)->IsDead()) {
-      auto to_delete = (*current);
-      ++current;
+  auto current_timer = timer_callbacks_.begin();
+  while (current_timer != timer_callbacks_.end()) {
+    if (current_timer->frames_until_ == 0) {
+      current_timer->callback_();
+
+      if (current_timer->one_off_) {
+        auto to_delete = (*current_timer);
+        ++current_timer;
+        timer_callbacks_.remove(to_delete);
+      } else {
+        current_timer->frames_until_ = current_timer->frequency_;
+        ++current_timer;
+      }
+
+    } else {
+      --current_timer->frames_until_;
+      ++current_timer;
+    }
+  }
+
+  auto current_entity = World::entities_.begin();
+  while (current_entity != World::entities_.end()) {
+    if ((*current_entity)->IsDead()) {
+      auto to_delete = (*current_entity);
+      ++current_entity;
       World::entities_.remove(to_delete);
     } else {
-      (*current)->DoLogic();
-      ++current;
+      (*current_entity)->DoLogic();
+      ++current_entity;
     }
   }
 }
@@ -138,6 +162,19 @@ void App::StopApp(std::string error) {
   should_keep_running_ = false;
 }
 
+void App::RegisterTimerCallback(int frequency, bool one_off,
+                                void (*const callback)()) {
+  timer_callbacks_.emplace_front(frequency, one_off, callback);
+}
+
 bool App::unrecoverable_ = false;
 
 bool App::should_keep_running_ = true;
+
+std::forward_list<TimerCallback> App::timer_callbacks_ = {};
+
+bool operator==(const TimerCallback& lhs, const TimerCallback& rhs) {
+  return lhs.id_ == rhs.id_;
+}
+
+int TimerCallback::next_id_ = 1;

@@ -29,6 +29,7 @@ set(GFX_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}${GFX_PREFIX}")
 
 set(PLAYER_TEXTURE "${GFX_FOLDER}/player.png")
 set(BULLET_TEXTURE "${GFX_FOLDER}/playerBullet.png")
+set(ENEMY_TEXTURE "${GFX_FOLDER}/enemy.png")
 
 set(SHOOTEMUP_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/inc")
 
@@ -56,6 +57,8 @@ target_sources(ShootEmUp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/sdl_wrappers.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/texture_manager.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/world.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/enemy.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/shootem_math.cpp
 )
 
 if(WIN32)

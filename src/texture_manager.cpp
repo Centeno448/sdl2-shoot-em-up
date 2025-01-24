@@ -49,6 +49,8 @@ SDL_Renderer* const TextureManager::GetRenderer() { return renderer_.get(); }
 std::vector<Texture> TextureManager::loaded_textures_ = {};
 
 std::map<std::string, std::string> TextureManager::texture_map_ = {
-    {PLAYER_TEXTURE_ID, PLAYER_TEXTURE}, {BULLET_TEXTURE_ID, BULLET_TEXTURE}};
+    {PLAYER_TEXTURE_ID, PLAYER_TEXTURE},
+    {BULLET_TEXTURE_ID, BULLET_TEXTURE},
+    {ENEMY_TEXTURE_ID, ENEMY_TEXTURE}};
 
 SDLRendererSharedPtr TextureManager::renderer_ = nullptr;
