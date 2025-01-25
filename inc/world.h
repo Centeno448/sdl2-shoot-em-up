@@ -6,16 +6,25 @@
 
 class World {
  public:
-  static std::forward_list<EntitySharedPtr> entities_;
-
   static EntitySharedPtr GetEntityById(std::string id);
 
   static void ResetWorld();
 
-  static void StaticInit();
+  static void StaticInit(SDLRendererSharedPtr renderer);
+
+  static void InitialState();
+
+  static void UpdateWorld();
+
+  static void DrawWorld();
 
   template <typename T, typename F>
   static EntitySharedPtr AddEntityToWorld(F f);
+
+ private:
+  static std::forward_list<EntitySharedPtr> entities_;
+  static SDL_Renderer* const GetRenderer();
+  inline static SDLRendererSharedPtr renderer_ = nullptr;
 };
 
 template <typename T, typename F>

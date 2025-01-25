@@ -5,7 +5,6 @@
 #include <format>
 #include <memory>
 
-#include "collision_manager.h"
 #include "defs.h"
 #include "effect_manager.h"
 #include "input_manager.h"
@@ -71,8 +70,9 @@ bool App::Init() {
 
   TextureManager::StaticInit(renderer_);
   EffectManager::StaticInit(renderer_);
+  World::StaticInit(renderer_);
 
-  World::StaticInit();
+  World::InitialState();
 
   return true;
 }
@@ -112,31 +112,13 @@ void App::DoLogic() {
 
   TimerManager::ProcessTimers();
 
-  auto current_entity = World::entities_.begin();
-  while (current_entity != World::entities_.end()) {
-    if ((*current_entity)->IsDead()) {
-      (*current_entity)->OnDeath();
-      EntitySharedPtr to_delete = (*current_entity);
-      ++current_entity;
-      World::entities_.remove(to_delete);
-      std::string collision_layer = to_delete->GetCollisionLayer();
-      if (collision_layer.size()) {
-        CollisionManager::layers_.at(collision_layer).remove(to_delete);
-      }
-    } else {
-      (*current_entity)->DoLogic();
-      CollisionManager::CheckCollision(*current_entity);
-      ++current_entity;
-    }
-  }
+  World::UpdateWorld();
 }
 
 void App::DrawScene() {
   EffectManager::DrawEffects();
 
-  for (EntitySharedPtr e : World::entities_) {
-    e->Draw(GetRenderer());
-  }
+  World::DrawWorld();
 }
 
 void App::StopApp(std::string error) {
