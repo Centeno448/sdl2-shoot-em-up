@@ -110,25 +110,7 @@ void App::PresentScene() { SDL_RenderPresent(renderer_.get()); }
 void App::DoLogic() {
   EffectManager::UpdateEffects();
 
-  auto current_timer = TimerManager::timer_callbacks_.begin();
-  while (current_timer != TimerManager::timer_callbacks_.end()) {
-    if (current_timer->frames_until_ == 0) {
-      current_timer->callback_();
-
-      if (current_timer->one_off_) {
-        auto to_delete = (*current_timer);
-        ++current_timer;
-        TimerManager::timer_callbacks_.remove(to_delete);
-      } else {
-        current_timer->frames_until_ = current_timer->frequency_;
-        ++current_timer;
-      }
-
-    } else {
-      --current_timer->frames_until_;
-      ++current_timer;
-    }
-  }
+  TimerManager::ProcessTimers();
 
   auto current_entity = World::entities_.begin();
   while (current_entity != World::entities_.end()) {

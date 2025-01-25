@@ -30,7 +30,10 @@ class TimerManager {
   static void RegisterTimerCallback(int frequency, bool one_off,
                                     void (*const callback)());
 
-  static std::forward_list<TimerCallback> timer_callbacks_;
-
   static void ClearTimers();
+
+  static void ProcessTimers();
+
+ private:
+  static std::forward_list<TimerCallback> timer_callbacks_;
 };
