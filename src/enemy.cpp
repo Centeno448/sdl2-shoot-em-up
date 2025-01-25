@@ -24,7 +24,7 @@ void Enemy::DoLogic() {
   x_ += dx_;
 }
 
-std::string Enemy::GetTextureId() { return texture_id_; }
+std::string Enemy::GetEntityId() { return texture_id_; }
 
 bool Enemy::IsTextureLoaded() { return is_texture_loaded_; }
 
@@ -38,11 +38,11 @@ void Enemy::RegisterEnemy() {
   EntitySharedPtr entity = World::AddEntityToWorld<Enemy>(
       []() { return std::make_shared<Enemy>(); });
 
-  CollisionManager::layers_.at(BULLET_TEXTURE_ID).push_front(entity);
+  CollisionManager::layers_.at(BULLET_ENTITY_ID).push_front(entity);
 }
 
 void Enemy::HandleCollision(EntitySharedPtr collided_with) {
-  if (collided_with->GetTextureId() == "BLLT") {
+  if (collided_with->GetEntityId() == "BLLT") {
     --health_;
   }
 };

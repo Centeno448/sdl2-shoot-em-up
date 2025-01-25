@@ -8,7 +8,7 @@ void Bullet::DoLogic() {
   x_ += dx_;
 }
 
-std::string Bullet::GetTextureId() { return texture_id_; }
+std::string Bullet::GetEntityId() { return texture_id_; }
 
 bool Bullet::IsTextureLoaded() { return is_texture_loaded_; }
 
@@ -17,7 +17,7 @@ void Bullet::SetTextureLoaded(bool is_loaded) {
 };
 
 void Bullet::HandleCollision(EntitySharedPtr collided_with) {
-  if (collided_with->GetTextureId() == "ENMY") {
+  if (collided_with->GetEntityId() == "ENMY") {
     --health_;
   }
 };

@@ -10,7 +10,7 @@ class Player : public Entity {
 
   void DoLogic() override;
 
-  std::string GetTextureId() override;
+  std::string GetEntityId() override;
 
   bool IsTextureLoaded() override;
 
@@ -23,7 +23,7 @@ class Player : public Entity {
   static void RegisterPlayer();
 
  private:
-  inline static const std::string texture_id_ = PLAYER_TEXTURE_ID;
+  inline static const std::string texture_id_ = PLAYER_ENTITY_ID;
 
   static bool is_texture_loaded_;
 

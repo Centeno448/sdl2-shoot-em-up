@@ -27,7 +27,7 @@ EntitySharedPtr World::AddEntityToWorld(F f) {
   // Load texture if we haven't already
   if (!shared_entity->IsTextureLoaded()) {
     SDLTextureSharedPtr texture =
-        TextureManager::LoadTextureById(shared_entity->GetTextureId());
+        TextureManager::LoadTextureById(shared_entity->GetEntityId());
 
     if (texture == nullptr) {
       return nullptr;
@@ -37,7 +37,7 @@ EntitySharedPtr World::AddEntityToWorld(F f) {
     shared_entity->SetTextureLoaded(true);
   } else {
     SDLTextureSharedPtr texture =
-        TextureManager::GetTextureById(shared_entity->GetTextureId());
+        TextureManager::GetTextureById(shared_entity->GetEntityId());
     shared_entity->texture_ = texture;
   }
 

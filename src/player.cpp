@@ -58,12 +58,12 @@ void Player::Shoot() {
 }
 
 void Player::HandleCollision(EntitySharedPtr collided_with) {
-  if (collided_with->GetTextureId() == "ENMY_BLLT") {
+  if (collided_with->GetEntityId() == "ENMY_BLLT") {
     --health_;
   }
 };
 
-std::string Player::GetTextureId() { return texture_id_; }
+std::string Player::GetEntityId() { return texture_id_; }
 
 bool Player::IsTextureLoaded() { return is_texture_loaded_; }
 
@@ -80,5 +80,5 @@ void Player::RegisterPlayer() {
   EntitySharedPtr entity = World::AddEntityToWorld<Player>(
       [x, y]() { return std::make_shared<Player>(x, y); });
 
-  CollisionManager::layers_.at(ENEMY_BULLET_TEXTURE_ID).push_front(entity);
+  CollisionManager::layers_.at(ENEMY_BULLET_ENTITY_ID).push_front(entity);
 }

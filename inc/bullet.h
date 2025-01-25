@@ -9,7 +9,7 @@ class Bullet : public Entity {
 
   void DoLogic() override;
 
-  std::string GetTextureId() override;
+  std::string GetEntityId() override;
 
   bool IsTextureLoaded() override;
 
@@ -18,6 +18,6 @@ class Bullet : public Entity {
   void HandleCollision(EntitySharedPtr collided_with) override;
 
  private:
-  inline static const std::string texture_id_ = BULLET_TEXTURE_ID;
+  inline static const std::string texture_id_ = BULLET_ENTITY_ID;
   static bool is_texture_loaded_;
 };

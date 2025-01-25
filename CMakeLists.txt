@@ -31,6 +31,8 @@ set(PLAYER_TEXTURE "${GFX_FOLDER}/player.png")
 set(BULLET_TEXTURE "${GFX_FOLDER}/playerBullet.png")
 set(ENEMY_TEXTURE "${GFX_FOLDER}/enemy.png")
 set(ENEMY_BULLET_TEXTURE "${GFX_FOLDER}/enemyBullet.png")
+set(BACKGROUND_TEXTURE "${GFX_FOLDER}/background.png")
+set(EXPLOSION_TEXTURE "${GFX_FOLDER}/explosion.png")
 
 set(SHOOTEMUP_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/inc")
 

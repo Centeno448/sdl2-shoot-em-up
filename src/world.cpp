@@ -11,7 +11,7 @@ std::forward_list<EntitySharedPtr> World::entities_ = {};
 EntitySharedPtr World::GetEntityById(std::string id) {
   auto found =
       std::find_if(entities_.cbegin(), entities_.cend(),
-                   [id](EntitySharedPtr e) { return e->GetTextureId() == id; });
+                   [id](EntitySharedPtr e) { return e->GetEntityId() == id; });
 
   if (found != entities_.cend()) {
     return *found;

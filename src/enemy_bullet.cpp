@@ -9,7 +9,7 @@ void EnemyBullet::DoLogic() {
   y_ += dy_;
 }
 
-std::string EnemyBullet::GetTextureId() { return texture_id_; }
+std::string EnemyBullet::GetEntityId() { return texture_id_; }
 
 bool EnemyBullet::IsTextureLoaded() { return is_texture_loaded_; }
 
@@ -18,7 +18,7 @@ void EnemyBullet::SetTextureLoaded(bool is_loaded) {
 };
 
 void EnemyBullet::HandleCollision(EntitySharedPtr collided_with) {
-  if (collided_with->GetTextureId() == "PLYR") {
+  if (collided_with->GetEntityId() == "PLYR") {
     --health_;
   }
 };

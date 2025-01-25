@@ -15,7 +15,7 @@ class Enemy : public Entity {
 
   void DoLogic() override;
 
-  std::string GetTextureId() override;
+  std::string GetEntityId() override;
 
   bool IsTextureLoaded() override;
 
@@ -34,9 +34,9 @@ class Enemy : public Entity {
   int reload_frames_;
 
  private:
-  inline static const std::string texture_id_ = ENEMY_TEXTURE_ID;
+  inline static const std::string texture_id_ = ENEMY_ENTITY_ID;
 
-  inline static const std::string collides_with_ = BULLET_TEXTURE_ID;
+  inline static const std::string collides_with_ = BULLET_ENTITY_ID;
 
   static bool is_texture_loaded_;
 };

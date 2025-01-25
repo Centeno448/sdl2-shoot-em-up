@@ -34,7 +34,7 @@ class Entity {
 
   virtual void SetTextureLoaded(bool is_loaded);
 
-  virtual std::string GetTextureId();
+  virtual std::string GetEntityId();
 
   virtual std::string GetCollisionLayer();
 
