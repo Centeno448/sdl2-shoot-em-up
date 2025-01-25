@@ -1,11 +1,24 @@
 #include "enemy.h"
 
 #include "collision_manager.h"
+#include "enemy_bullet.h"
+#include "shootem_math.h"
 #include "world.h"
 
 void Enemy::DoLogic() {
   if (x_ < -w_) {
     health_ = 0;
+  }
+
+  EntitySharedPtr player = World::GetEntityById("PLYR");
+
+  if (player != nullptr) {
+    if (reload_frames_ <= 0) {
+      Shoot(player);
+      ResetReloadFrames();
+    } else {
+      --reload_frames_;
+    }
   }
 
   x_ += dx_;
@@ -33,5 +46,25 @@ void Enemy::HandleCollision(EntitySharedPtr collided_with) {
     --health_;
   }
 };
+
+void Enemy::Shoot(EntitySharedPtr target) {
+  // Spawn bullet
+  EntitySharedPtr bullet = World::AddEntityToWorld<EnemyBullet>(
+      [this]() { return std::make_shared<EnemyBullet>(x_ + (h_ / 2), y_); });
+
+  // TODO: Stop app on failure to spawn bullet
+
+  bullet->y_ += (h_ / 2) - (bullet->h_ / 2);
+
+  ShootEmMath::CalculateSlope(target->x_, target->y_, x_, y_, bullet->dx_,
+                              bullet->dy_);
+
+  bullet->dx_ *= ENEMY_BULLET_SPEED;
+  bullet->dy_ *= ENEMY_BULLET_SPEED;
+}
+
+void Enemy::ResetReloadFrames() {
+  reload_frames_ = ShootEmMath::RandomNumber(10, FPS_TARGET * 2);
+}
 
 std::string Enemy::GetCollisionLayer() { return collides_with_; }

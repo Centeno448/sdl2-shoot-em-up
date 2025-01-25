@@ -56,6 +56,12 @@ void Player::Shoot() {
   reload_frames_ = 8;
 }
 
+void Player::HandleCollision(EntitySharedPtr collided_with) {
+  if (collided_with->GetTextureId() == "ENMY_BLLT") {
+    --health_;
+  }
+};
+
 std::string Player::GetTextureId() { return texture_id_; }
 
 bool Player::IsTextureLoaded() { return is_texture_loaded_; }

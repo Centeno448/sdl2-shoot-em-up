@@ -7,6 +7,8 @@
 class World {
  public:
   static std::forward_list<EntitySharedPtr> entities_;
+
+  static EntitySharedPtr GetEntityById(std::string id);
   template <typename T, typename F>
   static EntitySharedPtr AddEntityToWorld(F f);
 };

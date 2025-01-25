@@ -3,10 +3,9 @@
 #include "defs.h"
 #include "entity.h"
 
-class Player : public Entity {
+class EnemyBullet : public Entity {
  public:
-  Player(float x, float y) : Entity(x, y) { health_ = 3; };
-  int reload_frames_ = 0;
+  EnemyBullet(float x, float y) : Entity(x, y) {};
 
   void DoLogic() override;
 
@@ -19,9 +18,6 @@ class Player : public Entity {
   void HandleCollision(EntitySharedPtr collided_with) override;
 
  private:
-  inline static const std::string texture_id_ = PLAYER_TEXTURE_ID;
-
+  inline static const std::string texture_id_ = ENEMY_BULLET_TEXTURE_ID;
   static bool is_texture_loaded_;
-
-  void Shoot();
 };

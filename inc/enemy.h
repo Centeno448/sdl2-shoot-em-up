@@ -10,6 +10,7 @@ class Enemy : public Entity {
  public:
   Enemy() : Entity(SCREEN_WIDTH, ShootEmMath::RandomNumber(1, SCREEN_HEIGHT)) {
     dx_ = -(ShootEmMath::RandomNumber(2, 10));
+    ResetReloadFrames();
   };
 
   void DoLogic() override;
@@ -25,6 +26,12 @@ class Enemy : public Entity {
   static void RegisterEnemy();
 
   std::string GetCollisionLayer() override;
+
+  void Shoot(EntitySharedPtr target);
+
+  void ResetReloadFrames();
+
+  int reload_frames_;
 
  private:
   inline static const std::string texture_id_ = ENEMY_TEXTURE_ID;

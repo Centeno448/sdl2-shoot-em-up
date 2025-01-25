@@ -45,6 +45,8 @@ void App::RegisterPlayer(float x, float y) {
   if (entity == nullptr) {
     StopApp("Player entity creation failed. See error output above");
   }
+
+  CollisionManager::layers_.at(ENEMY_BULLET_TEXTURE_ID).push_front(entity);
 }
 
 bool App::Init() {

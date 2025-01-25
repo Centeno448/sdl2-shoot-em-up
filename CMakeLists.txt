@@ -59,6 +59,7 @@ target_sources(ShootEmUp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/texture_manager.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/world.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/enemy.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/enemy_bullet.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/shootem_math.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/collision_manager.cpp
 )

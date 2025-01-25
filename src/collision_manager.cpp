@@ -4,7 +4,8 @@
 
 #include "defs.h"
 
-CollisionLayerMap CollisionManager::layers_ = {{BULLET_TEXTURE_ID, {}}};
+CollisionLayerMap CollisionManager::layers_ = {{BULLET_TEXTURE_ID, {}},
+                                               {ENEMY_BULLET_TEXTURE_ID, {}}};
 
 void CollisionManager::CheckCollision(EntitySharedPtr entity) {
   auto entity_class_id = entity->GetTextureId();
