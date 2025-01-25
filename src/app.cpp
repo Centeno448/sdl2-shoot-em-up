@@ -7,6 +7,7 @@
 
 #include "collision_manager.h"
 #include "defs.h"
+#include "effect_manager.h"
 #include "input_manager.h"
 #include "log.h"
 #include "sdl_wrappers.h"
@@ -69,6 +70,7 @@ bool App::Init() {
   }
 
   TextureManager::StaticInit(renderer_);
+  EffectManager::StaticInit(renderer_);
 
   World::StaticInit();
 
@@ -106,6 +108,8 @@ void App::PrepareScene() {
 void App::PresentScene() { SDL_RenderPresent(renderer_.get()); }
 
 void App::DoLogic() {
+  EffectManager::UpdateEffects();
+
   auto current_timer = TimerManager::timer_callbacks_.begin();
   while (current_timer != TimerManager::timer_callbacks_.end()) {
     if (current_timer->frames_until_ == 0) {
@@ -146,6 +150,8 @@ void App::DoLogic() {
 }
 
 void App::DrawScene() {
+  EffectManager::DrawEffects();
+
   for (EntitySharedPtr e : World::entities_) {
     e->Draw(GetRenderer());
   }

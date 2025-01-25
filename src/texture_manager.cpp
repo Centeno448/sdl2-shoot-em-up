@@ -10,6 +10,8 @@
 
 void TextureManager::StaticInit(SDLRendererSharedPtr renderer) {
   renderer_ = renderer;
+
+  LoadTextureById(BACKGROUND_TEXTURE_ID);
 }
 
 SDLTextureSharedPtr TextureManager::GetTextureById(std::string id) {
@@ -52,6 +54,7 @@ std::map<std::string, std::string> TextureManager::texture_map_ = {
     {PLAYER_ENTITY_ID, PLAYER_TEXTURE},
     {BULLET_ENTITY_ID, BULLET_TEXTURE},
     {ENEMY_ENTITY_ID, ENEMY_TEXTURE},
-    {ENEMY_BULLET_ENTITY_ID, ENEMY_BULLET_TEXTURE}};
+    {ENEMY_BULLET_ENTITY_ID, ENEMY_BULLET_TEXTURE},
+    {BACKGROUND_TEXTURE_ID, BACKGROUND_TEXTURE}};
 
 SDLRendererSharedPtr TextureManager::renderer_ = nullptr;
