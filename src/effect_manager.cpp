@@ -1,5 +1,6 @@
 #include "effect_manager.h"
 
+#include "background.h"
 #include "defs.h"
 #include "sdl_wrappers.h"
 #include "shootem_math.h"
@@ -8,6 +9,8 @@
 
 void EffectManager::StaticInit(SDLRendererSharedPtr renderer) {
   renderer_ = renderer;
+
+  AddEffect<Background>([]() { return std::make_shared<Background>(0); });
 
   for (int i = 0; i < MAX_STARS; ++i) {
     int x = static_cast<int>(ShootEmMath::RandomNumber(1, SCREEN_WIDTH));
@@ -20,10 +23,6 @@ void EffectManager::StaticInit(SDLRendererSharedPtr renderer) {
 }
 
 void EffectManager::UpdateEffects() {
-  if (--background_x_ < -SCREEN_WIDTH) {
-    background_x_ = 0;
-  }
-
   for (EffectSharedPtr &e : effects_) {
     e->DoLogic();
   }
@@ -32,25 +31,7 @@ void EffectManager::UpdateEffects() {
 SDL_Renderer *const EffectManager::GetRenderer() { return renderer_.get(); }
 
 void EffectManager::DrawEffects() {
-  DrawBackground();
   for (EffectSharedPtr &e : effects_) {
     e->Draw(GetRenderer());
-  }
-}
-
-void EffectManager::DrawBackground() {
-  SDLTextureSharedPtr background =
-      TextureManager::GetTextureById(BACKGROUND_TEXTURE_ID);
-
-  SDL_Rect dest;
-  int x;
-
-  for (x = background_x_; x < SCREEN_WIDTH; x += SCREEN_WIDTH) {
-    dest.x = x;
-    dest.y = 0;
-    dest.w = SCREEN_WIDTH;
-    dest.h = SCREEN_HEIGHT;
-
-    SDL_RenderCopy(GetRenderer(), background.get(), NULL, &dest);
   }
 }

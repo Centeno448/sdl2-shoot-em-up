@@ -67,6 +67,7 @@ target_sources(ShootEmUp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/timer_manager.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/effect_manager.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/star.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/background.cpp
 )
 
 if(WIN32)

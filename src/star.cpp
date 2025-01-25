@@ -1,5 +1,7 @@
 #include "star.h"
 
+#include "defs.h"
+
 void Star::DoLogic() {
   x_ -= speed_;
 
