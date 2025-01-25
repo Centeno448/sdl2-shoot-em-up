@@ -12,12 +12,12 @@ float ShootEmMath::RandomNumber(float min, float max) {
   return static_cast<float>(dis(gen));
 }
 
-void ShootEmMath::CalculateSlope(int x1, int y1, int x2, int y2, float &dx,
-                                 float &dy) {
-  int steps = std::max(std::abs(x1 - x2), std::abs(y1 - y2));
+void ShootEmMath::CalculateSlope(float x1, float y1, float x2, float y2,
+                                 float &dx, float &dy) {
+  float steps = std::max(std::abs(x1 - x2), std::abs(y1 - y2));
 
-  if (steps == 0) {
-    dx = dy = 0;
+  if (steps == 0.0) {
+    dx = dy = 0.0;
     return;
   }
 

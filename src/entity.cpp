@@ -7,8 +7,8 @@
 void Entity::Draw(SDL_Renderer* const renderer) {
   SDL_Rect dest;
 
-  dest.x = x_;
-  dest.y = y_;
+  dest.x = static_cast<int>(x_);
+  dest.y = static_cast<int>(y_);
 
   if (texture_ == nullptr) {
     Log::Error(std::format("Texture not set for {}", GetTextureId()));

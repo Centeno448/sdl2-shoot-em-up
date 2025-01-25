@@ -24,9 +24,11 @@ void CollisionManager::CheckCollision(EntitySharedPtr entity) {
 
 bool CollisionManager::DetermineCollision(EntitySharedPtr lhs,
                                           EntitySharedPtr rhs) {
-  int x1 = lhs->x_, y1 = lhs->y_, w1 = lhs->w_, h1 = lhs->h_;
+  float x1 = lhs->x_, y1 = lhs->y_, w1 = static_cast<float>(lhs->w_),
+        h1 = static_cast<float>(lhs->h_);
 
-  int x2 = rhs->x_, y2 = rhs->y_, w2 = rhs->w_, h2 = rhs->h_;
+  float x2 = rhs->x_, y2 = rhs->y_, w2 = static_cast<float>(rhs->w_),
+        h2 = static_cast<float>(rhs->h_);
 
   return (std::max(x1, x2) < std::min(x1 + w1, x2 + w2)) &&
          (std::max(y1, y2) < std::min(y1 + h1, y2 + h2));

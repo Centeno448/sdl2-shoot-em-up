@@ -64,7 +64,8 @@ void Enemy::Shoot(EntitySharedPtr target) {
 }
 
 void Enemy::ResetReloadFrames() {
-  reload_frames_ = ShootEmMath::RandomNumber(10, FPS_TARGET * 2);
+  reload_frames_ =
+      static_cast<int>(ShootEmMath::RandomNumber(10.0, FPS_TARGET * 2.0));
 }
 
 std::string Enemy::GetCollisionLayer() { return collides_with_; }

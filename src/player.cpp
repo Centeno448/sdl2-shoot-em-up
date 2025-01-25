@@ -76,8 +76,9 @@ bool Player::is_texture_loaded_ = false;
 void Player::OnDeath() {}
 
 void Player::RegisterPlayer() {
+  float x = 100, y = 100;
   EntitySharedPtr entity = World::AddEntityToWorld<Player>(
-      []() { return std::make_shared<Player>(100, 100); });
+      [x, y]() { return std::make_shared<Player>(x, y); });
 
   CollisionManager::layers_.at(ENEMY_BULLET_TEXTURE_ID).push_front(entity);
 }

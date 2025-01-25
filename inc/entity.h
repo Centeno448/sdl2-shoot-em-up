@@ -25,7 +25,7 @@ class Entity {
   int w_ = 0;
   int h_ = 0;
 
-  float health_;
+  int health_;
 
   virtual bool IsDead();
 
