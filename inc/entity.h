@@ -12,7 +12,10 @@ class Entity {
   typedef std::shared_ptr<Entity> EntitySharedPtr;
   Entity(float x, float y) : x_(x), y_(y), health_(1) {};
 
-  ~Entity() { texture_.reset(); }
+  ~Entity() {
+    OnDeath();
+    texture_.reset();
+  }
 
   float x_;
   float y_;
@@ -39,6 +42,8 @@ class Entity {
   virtual std::string GetCollisionLayer();
 
   virtual void HandleCollision(EntitySharedPtr collided_with);
+
+  virtual void OnDeath();
 
   SDLTextureSharedPtr texture_ = nullptr;
 };

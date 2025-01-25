@@ -3,6 +3,7 @@
 #include <SDL.h>
 
 #include "bullet.h"
+#include "collision_manager.h"
 #include "defs.h"
 #include "input_manager.h"
 #include "log.h"
@@ -71,3 +72,12 @@ void Player::SetTextureLoaded(bool is_loaded) {
 }
 
 bool Player::is_texture_loaded_ = false;
+
+void Player::OnDeath() {}
+
+void Player::RegisterPlayer() {
+  EntitySharedPtr entity = World::AddEntityToWorld<Player>(
+      []() { return std::make_shared<Player>(100, 100); });
+
+  CollisionManager::layers_.at(ENEMY_BULLET_TEXTURE_ID).push_front(entity);
+}

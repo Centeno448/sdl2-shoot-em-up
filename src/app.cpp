@@ -12,6 +12,7 @@
 #include "log.h"
 #include "player.h"
 #include "sdl_wrappers.h"
+#include "timer_manager.h"
 #include "world.h"
 
 App::~App() {
@@ -37,17 +38,6 @@ void App::Run() {
 SDL_Renderer* const App::GetRenderer() { return renderer_.get(); }
 
 bool App::ShouldKeepRunning() { return should_keep_running_; }
-
-void App::RegisterPlayer(float x, float y) {
-  EntitySharedPtr entity = World::AddEntityToWorld<Player>(
-      [x, y]() { return std::make_shared<Player>(x, y); });
-
-  if (entity == nullptr) {
-    StopApp("Player entity creation failed. See error output above");
-  }
-
-  CollisionManager::layers_.at(ENEMY_BULLET_TEXTURE_ID).push_front(entity);
-}
 
 bool App::Init() {
   int renderer_flags = SDL_RENDERER_ACCELERATED;
@@ -82,9 +72,9 @@ bool App::Init() {
 
   TextureManager::StaticInit(renderer_);
 
-  RegisterPlayer(100, 100);
+  TimerManager::RegisterTimerCallback(0, true, &Player::RegisterPlayer);
 
-  RegisterTimerCallback(60, false, &Enemy::RegisterEnemy);
+  TimerManager::RegisterTimerCallback(60, false, &Enemy::RegisterEnemy);
 
   return true;
 }
@@ -120,15 +110,15 @@ void App::PrepareScene() {
 void App::PresentScene() { SDL_RenderPresent(renderer_.get()); }
 
 void App::DoLogic() {
-  auto current_timer = timer_callbacks_.begin();
-  while (current_timer != timer_callbacks_.end()) {
+  auto current_timer = TimerManager::timer_callbacks_.begin();
+  while (current_timer != TimerManager::timer_callbacks_.end()) {
     if (current_timer->frames_until_ == 0) {
       current_timer->callback_();
 
       if (current_timer->one_off_) {
         auto to_delete = (*current_timer);
         ++current_timer;
-        timer_callbacks_.remove(to_delete);
+        TimerManager::timer_callbacks_.remove(to_delete);
       } else {
         current_timer->frames_until_ = current_timer->frequency_;
         ++current_timer;
@@ -170,19 +160,6 @@ void App::StopApp(std::string error) {
   should_keep_running_ = false;
 }
 
-void App::RegisterTimerCallback(int frequency, bool one_off,
-                                void (*const callback)()) {
-  timer_callbacks_.emplace_front(frequency, one_off, callback);
-}
-
 bool App::unrecoverable_ = false;
 
 bool App::should_keep_running_ = true;
-
-std::forward_list<TimerCallback> App::timer_callbacks_ = {};
-
-bool operator==(const TimerCallback& lhs, const TimerCallback& rhs) {
-  return lhs.id_ == rhs.id_;
-}
-
-int TimerCallback::next_id_ = 1;

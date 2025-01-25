@@ -18,6 +18,10 @@ class Player : public Entity {
 
   void HandleCollision(EntitySharedPtr collided_with) override;
 
+  void OnDeath() override;
+
+  static void RegisterPlayer();
+
  private:
   inline static const std::string texture_id_ = PLAYER_TEXTURE_ID;
 

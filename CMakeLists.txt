@@ -62,6 +62,7 @@ target_sources(ShootEmUp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/enemy_bullet.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/shootem_math.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/collision_manager.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/timer_manager.cpp
 )
 
 if(WIN32)
