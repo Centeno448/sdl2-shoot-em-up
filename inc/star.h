@@ -1,3 +1,5 @@
+#pragma once
+
 #include "effect_manager.h"
 
 class Star : public Effect {

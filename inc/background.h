@@ -1,3 +1,5 @@
+#pragma once
+
 #include "effect_manager.h"
 
 class Background : public Effect {
