@@ -1,7 +1,7 @@
 #include "enemy_bullet.h"
 
 void EnemyBullet::DoLogic() {
-  if (x_ < -w_) {
+  if (x_ < -w_ || x_ > SCREEN_WIDTH || y_ < -h_ || y_ > SCREEN_HEIGHT) {
     health_ = 0;
   }
 
