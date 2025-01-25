@@ -31,7 +31,9 @@ class App {
   static bool unrecoverable_;
 
  private:
-  bool Init();
+  void Init();
+
+  bool InitSDL();
 
   void HandleEvents();
 

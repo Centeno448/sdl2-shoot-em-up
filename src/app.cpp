@@ -37,7 +37,20 @@ SDL_Renderer* const App::GetRenderer() { return renderer_.get(); }
 
 bool App::ShouldKeepRunning() { return should_keep_running_; }
 
-bool App::Init() {
+void App::Init() {
+  if (!InitSDL()) {
+    StopApp("Failed to initialize SDL. See error output above.");
+    return;
+  }
+
+  TextureManager::StaticInit(renderer_);
+  EffectManager::StaticInit(renderer_);
+  World::StaticInit(renderer_);
+
+  World::InitialState();
+}
+
+bool App::InitSDL() {
   int renderer_flags = SDL_RENDERER_ACCELERATED;
   int window_flags = 0;
 
@@ -67,12 +80,6 @@ bool App::Init() {
                            SDL_GetError()));
     return false;
   }
-
-  TextureManager::StaticInit(renderer_);
-  EffectManager::StaticInit(renderer_);
-  World::StaticInit(renderer_);
-
-  World::InitialState();
 
   return true;
 }
