@@ -7,10 +7,8 @@
 
 #include "collision_manager.h"
 #include "defs.h"
-#include "enemy.h"
 #include "input_manager.h"
 #include "log.h"
-#include "player.h"
 #include "sdl_wrappers.h"
 #include "timer_manager.h"
 #include "world.h"
@@ -72,9 +70,7 @@ bool App::Init() {
 
   TextureManager::StaticInit(renderer_);
 
-  TimerManager::RegisterTimerCallback(0, true, &Player::RegisterPlayer);
-
-  TimerManager::RegisterTimerCallback(60, false, &Enemy::RegisterEnemy);
+  World::StaticInit();
 
   return true;
 }
@@ -133,6 +129,7 @@ void App::DoLogic() {
   auto current_entity = World::entities_.begin();
   while (current_entity != World::entities_.end()) {
     if ((*current_entity)->IsDead()) {
+      (*current_entity)->OnDeath();
       EntitySharedPtr to_delete = (*current_entity);
       ++current_entity;
       World::entities_.remove(to_delete);

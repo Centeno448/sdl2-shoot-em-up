@@ -1,3 +1,5 @@
+#pragma once
+
 #include <forward_list>
 
 class TimerCallback {
@@ -27,5 +29,8 @@ class TimerManager {
  public:
   static void RegisterTimerCallback(int frequency, bool one_off,
                                     void (*const callback)());
+
   static std::forward_list<TimerCallback> timer_callbacks_;
+
+  static void ClearTimers();
 };

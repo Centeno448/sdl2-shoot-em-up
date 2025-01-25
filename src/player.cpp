@@ -73,7 +73,7 @@ void Player::SetTextureLoaded(bool is_loaded) {
 
 bool Player::is_texture_loaded_ = false;
 
-void Player::OnDeath() {}
+void Player::OnDeath() { World::ResetWorld(); }
 
 void Player::RegisterPlayer() {
   float x = 100, y = 100;
