@@ -1,10 +1,10 @@
-#include "effect_manager.h"
+#include "effects/effect_manager.h"
 
-#include "background.h"
 #include "defs.h"
+#include "effects/background.h"
+#include "effects/star.h"
 #include "sdl_wrappers.h"
 #include "shootem_math.h"
-#include "star.h"
 #include "texture_manager.h"
 
 void EffectManager::StaticInit(SDLRendererSharedPtr renderer) {

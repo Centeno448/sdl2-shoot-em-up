@@ -4,7 +4,7 @@
 #include <map>
 #include <string>
 
-#include "entity.h"
+#include "entities/entity.h"
 
 typedef std::map<std::string, std::forward_list<EntitySharedPtr>>
     CollisionLayerMap;

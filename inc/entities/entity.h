@@ -5,7 +5,7 @@
 #include <memory>
 #include <string>
 
-#include "texture_manager.h"
+#include "../texture_manager.h"
 
 class Entity {
  public:

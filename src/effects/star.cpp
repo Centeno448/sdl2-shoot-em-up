@@ -1,4 +1,4 @@
-#include "star.h"
+#include "effects/star.h"
 
 #include "defs.h"
 

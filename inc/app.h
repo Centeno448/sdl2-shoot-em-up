@@ -6,7 +6,7 @@
 #include <memory>
 
 #include "defs.h"
-#include "entity.h"
+#include "entities/entity.h"
 #include "sdl_wrappers.h"
 
 class App {

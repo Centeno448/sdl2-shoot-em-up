@@ -2,9 +2,9 @@
 
 #include <random>
 
+#include "../shootem_math.h"
 #include "defs.h"
 #include "entity.h"
-#include "shootem_math.h"
 
 class Enemy : public Entity {
  public:

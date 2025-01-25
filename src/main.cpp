@@ -1,5 +1,5 @@
 #include "app.h"
-#include "entity.h"
+#include "entities/entity.h"
 #include "log.h"
 
 #if _WIN32

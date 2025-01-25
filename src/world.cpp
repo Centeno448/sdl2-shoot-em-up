@@ -2,8 +2,8 @@
 
 #include "algorithm"
 #include "collision_manager.h"
-#include "enemy.h"
-#include "player.h"
+#include "entities/enemy.h"
+#include "entities/player.h"
 #include "timer_manager.h"
 
 std::forward_list<EntitySharedPtr> World::entities_ = {};

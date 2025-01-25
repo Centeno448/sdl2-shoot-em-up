@@ -1,6 +1,6 @@
 #pragma once
 
-#include "effect_manager.h"
+#include "effect.h"
 
 class Background : public Effect {
  public:

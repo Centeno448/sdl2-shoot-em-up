@@ -1,4 +1,4 @@
-#include "background.h"
+#include "effects/background.h"
 
 #include "defs.h"
 #include "texture_manager.h"

@@ -1,4 +1,4 @@
-#include "bullet.h"
+#include "entities/bullet.h"
 
 void Bullet::DoLogic() {
   if (x_ > SCREEN_WIDTH) {

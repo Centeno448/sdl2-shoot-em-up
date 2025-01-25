@@ -2,7 +2,7 @@
 
 #include <forward_list>
 
-#include "entity.h"
+#include "entities/entity.h"
 
 class World {
  public:

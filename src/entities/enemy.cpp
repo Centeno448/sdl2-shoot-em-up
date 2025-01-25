@@ -1,7 +1,7 @@
-#include "enemy.h"
+#include "entities/enemy.h"
 
 #include "collision_manager.h"
-#include "enemy_bullet.h"
+#include "entities/enemy_bullet.h"
 #include "shootem_math.h"
 #include "world.h"
 

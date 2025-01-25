@@ -1,10 +1,10 @@
-#include "player.h"
+#include "entities/player.h"
 
 #include <SDL.h>
 
-#include "bullet.h"
 #include "collision_manager.h"
 #include "defs.h"
+#include "entities/bullet.h"
 #include "input_manager.h"
 #include "log.h"
 #include "world.h"

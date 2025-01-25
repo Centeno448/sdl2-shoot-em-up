@@ -6,7 +6,7 @@
 #include <memory>
 
 #include "defs.h"
-#include "effect_manager.h"
+#include "effects/effect_manager.h"
 #include "input_manager.h"
 #include "log.h"
 #include "sdl_wrappers.h"

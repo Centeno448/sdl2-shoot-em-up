@@ -51,23 +51,25 @@ endif()
 target_sources(ShootEmUp
   PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/src/app.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/bullet.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/entity.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/input_manager.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/log.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/player.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/sdl_wrappers.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/texture_manager.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/world.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/enemy.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/enemy_bullet.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/shootem_math.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/collision_manager.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/timer_manager.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/effect_manager.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/star.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/background.cpp
+
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/entities/entity.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/entities/bullet.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/entities/player.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/entities/enemy.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/entities/enemy_bullet.cpp
+
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/effect_manager.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/star.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/background.cpp
 )
 
 if(WIN32)
