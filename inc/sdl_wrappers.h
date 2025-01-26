@@ -11,6 +11,8 @@ void SDLRendererDeleter(SDL_Renderer* renderer);
 
 void SDLWindowDeleter(SDL_Window* window);
 
+void SDLMixChunkDeleter(Mix_Chunk* mix_chunk);
+
 typedef std::shared_ptr<SDL_Texture> SDLTextureSharedPtr;
 
 typedef std::shared_ptr<SDL_Renderer> SDLRendererSharedPtr;

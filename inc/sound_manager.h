@@ -9,13 +9,17 @@
 enum SoundChannel { CH_ANY = -1, CH_PLAYER, CH_ENEMY };
 
 struct Sound {
-  Sound(std::string id, Mix_Chunk* sound) : id_(id) { sound_.reset(sound); };
+  Sound(std::string id, Mix_Chunk* sound) : id_(id) {
+    sound_.reset(sound, &SDLMixChunkDeleter);
+  };
 
   std::string id_;
   SDLMixChunkSharedPtr sound_;
 };
 
 class SoundManager {
+  ~SoundManager() { Mix_CloseAudio(); }
+
  public:
   static void PlaySoundById(std::string id, SoundChannel channel);
 

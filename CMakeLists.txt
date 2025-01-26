@@ -38,8 +38,8 @@ set(EXPLOSION_TEXTURE "${GFX_FOLDER}/explosion.png")
 set(SFX_PREFIX "/sfx")
 set(SFX_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}${SFX_PREFIX}")
 
-set(PLAYER_SHOT_SFX "${SFX_FOLDER}/334227__jradcoolness__laser.oog")
-set(PLAYER_DEATH_SFX "${SFX_FOLDER}/245372__quaker540__hq-explosion")
+set(PLAYER_SHOT_SFX "${SFX_FOLDER}/334227__jradcoolness__laser.ogg")
+set(PLAYER_DEATH_SFX "${SFX_FOLDER}/245372__quaker540__hq-explosion.ogg")
 set(ENEMY_SHOT_SFX "${SFX_FOLDER}/196914__dpoggioli__laser-gun.ogg")
 set(ENEMY_DEATH_SFX "${SFX_FOLDER}/10 Guage Shotgun-SoundBible.com-74120584.ogg")
 
@@ -97,5 +97,12 @@ add_custom_command(
     TARGET ShootEmUp POST_BUILD
     COMMAND "${CMAKE_COMMAND}" -E copy_directory_if_different "${GFX_FOLDER}" "$<TARGET_FILE_DIR:ShootEmUp>${GFX_PREFIX}"
     VERBATIM
-    COMMENT "Copying Assets"
+    COMMENT "Copying GFX"
+)
+
+add_custom_command(
+    TARGET ShootEmUp POST_BUILD
+    COMMAND "${CMAKE_COMMAND}" -E copy_directory_if_different "${SFX_FOLDER}" "$<TARGET_FILE_DIR:ShootEmUp>${SFX_PREFIX}"
+    VERBATIM
+    COMMENT "Copying SFX"
 )
