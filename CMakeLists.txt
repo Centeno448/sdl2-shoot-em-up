@@ -81,6 +81,7 @@ target_sources(ShootEmUp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/entities/player.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/entities/enemy.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/entities/enemy_bullet.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/entities/points.cpp
 
   ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/effect_manager.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/star.cpp

@@ -5,6 +5,7 @@
 #include "effects/effect_manager.h"
 #include "effects/explosion.h"
 #include "entities/enemy_bullet.h"
+#include "entities/points.h"
 #include "hud.h"
 #include "shootem_math.h"
 #include "sound_manager.h"
@@ -85,6 +86,7 @@ void Enemy::OnKilled() {
   SoundManager::PlaySoundById(ENEMY_DEATH_SFX_ID, SoundChannel::CH_ANY);
   SpawnExplosion();
   SpawnDebris();
+  Points::Spawn(x_, y_, dx_, h_);
 }
 
 void Enemy::SpawnExplosion() {

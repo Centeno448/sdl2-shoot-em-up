@@ -5,7 +5,8 @@
 #include "defs.h"
 
 CollisionLayerMap CollisionManager::layers_ = {{BULLET_ENTITY_ID, {}},
-                                               {ENEMY_BULLET_ENTITY_ID, {}}};
+                                               {ENEMY_BULLET_ENTITY_ID, {}},
+                                               {POINTS_ENTITY_ID, {}}};
 
 void CollisionManager::CheckCollision(EntitySharedPtr entity) {
   auto entity_class_id = entity->GetEntityId();

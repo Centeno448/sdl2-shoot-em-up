@@ -8,6 +8,7 @@
 #include "effects/effect_manager.h"
 #include "effects/explosion.h"
 #include "entities/bullet.h"
+#include "hud.h"
 #include "input_manager.h"
 #include "log.h"
 #include "sound_manager.h"
@@ -68,6 +69,10 @@ void Player::HandleCollision(EntitySharedPtr collided_with) {
     --health_;
     SoundManager::PlaySoundById(PLAYER_HIT_SFX_ID, SoundChannel::CH_PLAYER);
   }
+
+  if (collided_with->GetEntityId() == "POINTS") {
+    HUD::IncreaseScore(POINTS_SCORE);
+  }
 };
 
 std::string Player::GetEntityId() { return texture_id_; }
@@ -93,6 +98,7 @@ void Player::RegisterPlayer() {
       [x, y]() { return std::make_shared<Player>(x, y); });
 
   CollisionManager::layers_.at(ENEMY_BULLET_ENTITY_ID).push_front(entity);
+  CollisionManager::layers_.at(POINTS_ENTITY_ID).push_front(entity);
 }
 
 void Player::SpawnExplosion() {
