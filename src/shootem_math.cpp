@@ -4,12 +4,20 @@
 
 #include <random>
 
-float ShootEmMath::RandomNumber(float min, float max) {
+float ShootEmMath::RandomFloat(float min, float max) {
   std::random_device rd;
   std::mt19937 gen(rd());
   std::uniform_real_distribution<> dis(min, max);
 
   return static_cast<float>(dis(gen));
+}
+
+int ShootEmMath::RandomInt(int min, int max) {
+  std::random_device rd;
+  std::mt19937 gen(rd());
+  std::uniform_int_distribution<> dis(min, max);
+
+  return dis(gen);
 }
 
 void ShootEmMath::CalculateSlope(float x1, float y1, float x2, float y2,

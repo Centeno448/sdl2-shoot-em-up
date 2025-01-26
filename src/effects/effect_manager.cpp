@@ -13,9 +13,9 @@ void EffectManager::StaticInit(SDLRendererSharedPtr renderer) {
   AddEffect<Background>([]() { return std::make_shared<Background>(0); });
 
   for (int i = 0; i < MAX_STARS; ++i) {
-    int x = static_cast<int>(ShootEmMath::RandomNumber(1, SCREEN_WIDTH));
-    int y = static_cast<int>(ShootEmMath::RandomNumber(1, SCREEN_HEIGHT));
-    int speed = static_cast<int>(ShootEmMath::RandomNumber(1.0, 9.0));
+    int x = static_cast<int>(ShootEmMath::RandomFloat(1, SCREEN_WIDTH));
+    int y = static_cast<int>(ShootEmMath::RandomFloat(1, SCREEN_HEIGHT));
+    int speed = static_cast<int>(ShootEmMath::RandomFloat(1.0, 9.0));
 
     AddEffect<Star>(
         [x, y, speed]() { return std::make_shared<Star>(x, y, speed); });

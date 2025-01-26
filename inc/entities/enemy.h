@@ -8,8 +8,8 @@
 
 class Enemy : public Entity {
  public:
-  Enemy() : Entity(SCREEN_WIDTH, ShootEmMath::RandomNumber(1, SCREEN_HEIGHT)) {
-    dx_ = -(ShootEmMath::RandomNumber(2, 10));
+  Enemy() : Entity(SCREEN_WIDTH, ShootEmMath::RandomFloat(1, SCREEN_HEIGHT)) {
+    dx_ = -(ShootEmMath::RandomFloat(2, 10));
     ResetReloadFrames();
   };
 
