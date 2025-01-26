@@ -42,6 +42,7 @@ set(PLAYER_SHOT_SFX "${SFX_FOLDER}/334227__jradcoolness__laser.ogg")
 set(PLAYER_DEATH_SFX "${SFX_FOLDER}/245372__quaker540__hq-explosion.ogg")
 set(ENEMY_SHOT_SFX "${SFX_FOLDER}/196914__dpoggioli__laser-gun.ogg")
 set(ENEMY_DEATH_SFX "${SFX_FOLDER}/10 Guage Shotgun-SoundBible.com-74120584.ogg")
+set(BACKGROUND_MUSIC_SFX "${SFX_FOLDER}/music/Mercury.ogg")
 
 set(SHOOTEMUP_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/inc")
 

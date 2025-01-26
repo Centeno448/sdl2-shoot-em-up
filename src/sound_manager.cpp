@@ -1,9 +1,12 @@
 #include "sound_manager.h"
 
+#include <memory>
+
 #include "defs.h"
 #include "log.h"
 
 void SoundManager::StaticInit() {
+  LoadSoundById(BACKGROUND_MUSIC_SFX_ID);
   LoadSoundById(PLAYER_SHOT_SFX_ID);
   LoadSoundById(PLAYER_DEATH_SFX_ID);
   LoadSoundById(ENEMY_SHOT_SFX_ID);
@@ -45,8 +48,20 @@ void SoundManager::PlaySoundById(std::string id, SoundChannel channel) {
   Mix_PlayChannel(channel, sound.get(), 0);
 }
 
+void SoundManager::PlayMusic(std::string id) {
+  std::string path = sound_map_.at(id);
+
+  loaded_music_.reset(Mix_LoadMUS(path.c_str()));
+
+  Mix_PlayMusic(loaded_music_.get(), -1);
+}
+
 std::map<std::string, std::string> SoundManager::sound_map_ = {
     {PLAYER_SHOT_SFX_ID, PLAYER_SHOT_SFX},
     {PLAYER_DEATH_SFX_ID, PLAYER_DEATH_SFX},
     {ENEMY_SHOT_SFX_ID, ENEMY_SHOT_SFX},
-    {ENEMY_DEATH_SFX_ID, ENEMY_DEATH_SFX}};
+    {ENEMY_DEATH_SFX_ID, ENEMY_DEATH_SFX},
+    {BACKGROUND_MUSIC_SFX_ID, BACKGROUND_MUSIC_SFX}};
+
+SDLMixMusicUniquePtr SoundManager::loaded_music_ =
+    SDLMixMusicUniquePtr(nullptr, &SDLMixMusicDeleter);

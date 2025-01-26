@@ -23,6 +23,8 @@ class SoundManager {
  public:
   static void PlaySoundById(std::string id, SoundChannel channel);
 
+  static void PlayMusic(std::string id);
+
   static void StaticInit();
 
  private:
@@ -30,6 +32,8 @@ class SoundManager {
   static SDLMixChunkSharedPtr GetSoundById(std::string id);
 
   inline static std::vector<Sound> loaded_sounds_ = {};
+
+  static SDLMixMusicUniquePtr loaded_music_;
 
   static std::map<std::string, std::string> sound_map_;
 };

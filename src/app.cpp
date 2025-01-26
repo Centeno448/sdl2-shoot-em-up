@@ -51,6 +51,8 @@ void App::Init() {
   World::StaticInit(renderer_);
 
   World::InitialState();
+
+  SoundManager::PlayMusic(BACKGROUND_MUSIC_SFX_ID);
 }
 
 bool App::InitSDL() {
