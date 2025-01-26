@@ -28,4 +28,8 @@ class Player : public Entity {
   static bool is_texture_loaded_;
 
   void Shoot();
+
+  void SpawnExplosion();
+
+  void SpawnDebris();
 };

@@ -4,6 +4,9 @@
 
 #include "collision_manager.h"
 #include "defs.h"
+#include "effects/debris.h"
+#include "effects/effect_manager.h"
+#include "effects/explosion.h"
 #include "entities/bullet.h"
 #include "input_manager.h"
 #include "log.h"
@@ -78,6 +81,8 @@ bool Player::is_texture_loaded_ = false;
 
 void Player::OnDeath() {
   SoundManager::PlaySoundById(PLAYER_DEATH_SFX_ID, SoundChannel::CH_PLAYER);
+  SpawnExplosion();
+  SpawnDebris();
   World::ResetWorld();
 }
 
@@ -87,4 +92,40 @@ void Player::RegisterPlayer() {
       [x, y]() { return std::make_shared<Player>(x, y); });
 
   CollisionManager::layers_.at(ENEMY_BULLET_ENTITY_ID).push_front(entity);
+}
+
+void Player::SpawnExplosion() {
+  const int k_explosion_layers = 20;
+  for (int i = 0; i < k_explosion_layers; ++i) {
+    EffectManager::AddEffect<Explosion>(
+        [this]() { return std::make_shared<Explosion>(x_, y_); }, 1);
+  }
+}
+
+void Player::SpawnDebris() {
+  int w = w_ / 2;
+  int h = h_ / 2;
+
+  SDL_Rect source;
+
+  source.x = static_cast<int>(x_);
+  source.y = static_cast<int>(y_);
+  source.w = static_cast<int>(w_);
+  source.h = static_cast<int>(h_);
+
+  for (int y = 0; y <= h; y += h) {
+    for (int x = 0; x <= w; x += w) {
+      SDL_Rect debris_shard;
+
+      debris_shard.x = x;
+      debris_shard.y = y;
+      debris_shard.w = w;
+      debris_shard.h = h;
+      EffectManager::AddEffect<Debris>(
+          [this, source, debris_shard]() {
+            return std::make_shared<Debris>(source, debris_shard, texture_);
+          },
+          1);
+    }
+  }
 }
