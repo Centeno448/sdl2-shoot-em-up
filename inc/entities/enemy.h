@@ -39,4 +39,10 @@ class Enemy : public Entity {
   inline static const std::string collides_with_ = BULLET_ENTITY_ID;
 
   static bool is_texture_loaded_;
+
+  void OnKilled();
+
+  void SpawnExplosion();
+
+  void SpawnDebris();
 };

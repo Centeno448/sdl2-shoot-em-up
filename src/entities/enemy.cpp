@@ -1,6 +1,7 @@
 #include "entities/enemy.h"
 
 #include "collision_manager.h"
+#include "effects/debris.h"
 #include "effects/effect_manager.h"
 #include "effects/explosion.h"
 #include "entities/enemy_bullet.h"
@@ -49,11 +50,7 @@ void Enemy::HandleCollision(EntitySharedPtr collided_with) {
   }
 
   if (health_ <= 0) {
-    const int k_explosion_layers = 20;
-    for (int i = 0; i < k_explosion_layers; ++i) {
-      EffectManager::AddEffect<Explosion>(
-          [this]() { return std::make_shared<Explosion>(x_, y_); }, 1);
-    }
+    OnKilled();
   }
 };
 
@@ -79,3 +76,44 @@ void Enemy::ResetReloadFrames() {
 }
 
 std::string Enemy::GetCollisionLayer() { return collides_with_; }
+
+void Enemy::OnKilled() {
+  SpawnExplosion();
+  SpawnDebris();
+}
+
+void Enemy::SpawnExplosion() {
+  const int k_explosion_layers = 20;
+  for (int i = 0; i < k_explosion_layers; ++i) {
+    EffectManager::AddEffect<Explosion>(
+        [this]() { return std::make_shared<Explosion>(x_, y_); }, 1);
+  }
+}
+
+void Enemy::SpawnDebris() {
+  int w = w_ / 2;
+  int h = h_ / 2;
+
+  SDL_Rect source;
+
+  source.x = static_cast<int>(x_);
+  source.y = static_cast<int>(y_);
+  source.w = static_cast<int>(w_);
+  source.h = static_cast<int>(h_);
+
+  for (int y = 0; y <= h; y += h) {
+    for (int x = 0; x <= w; x += w) {
+      SDL_Rect debris_shard;
+
+      debris_shard.x = x;
+      debris_shard.y = y;
+      debris_shard.w = w;
+      debris_shard.h = h;
+      EffectManager::AddEffect<Debris>(
+          [this, source, debris_shard]() {
+            return std::make_shared<Debris>(source, debris_shard, texture_);
+          },
+          1);
+    }
+  }
+}
