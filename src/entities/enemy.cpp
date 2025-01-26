@@ -5,6 +5,7 @@
 #include "effects/effect_manager.h"
 #include "effects/explosion.h"
 #include "entities/enemy_bullet.h"
+#include "hud.h"
 #include "shootem_math.h"
 #include "sound_manager.h"
 #include "world.h"
@@ -80,6 +81,7 @@ void Enemy::ResetReloadFrames() {
 std::string Enemy::GetCollisionLayer() { return collides_with_; }
 
 void Enemy::OnKilled() {
+  HUD::IncreaseScore(1);
   SoundManager::PlaySoundById(ENEMY_DEATH_SFX_ID, SoundChannel::CH_ANY);
   SpawnExplosion();
   SpawnDebris();

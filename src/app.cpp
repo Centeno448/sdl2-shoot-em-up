@@ -8,6 +8,7 @@
 
 #include "defs.h"
 #include "effects/effect_manager.h"
+#include "hud.h"
 #include "input_manager.h"
 #include "log.h"
 #include "sdl_wrappers.h"
@@ -49,6 +50,7 @@ void App::Init() {
   TextureManager::StaticInit(renderer_);
   EffectManager::StaticInit(renderer_);
   World::StaticInit(renderer_);
+  HUD::StaticInit(renderer_);
 
   World::InitialState();
 
@@ -139,6 +141,8 @@ void App::DrawScene() {
   EffectManager::DrawEffects();
 
   World::DrawWorld();
+
+  HUD::Draw();
 }
 
 void App::StopApp(std::string error) {

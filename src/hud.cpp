@@ -1,11 +1,24 @@
 #include "hud.h"
 
+#include <format>
+
 #include "defs.h"
 #include "texture_manager.h"
 
 void HUD::StaticInit(SDLRendererSharedPtr renderer) { renderer_ = renderer; }
 
 SDL_Renderer *const HUD::GetRenderer() { return renderer_.get(); }
+
+void HUD::Draw() {
+  DrawText(10, 10, 255, 255, 255, std::format("SCORE: {}", score_));
+
+  if (score_ > high_score_) {
+    DrawText(960, 10, 0, 255, 0, std::format("HIGH SCORE: {}", score_));
+  } else {
+    DrawText(960, 10, 255, 255, 255,
+             std::format("HIGH SCORE: {}", high_score_));
+  }
+}
 
 void HUD::DrawText(int x, int y, int r, int g, int b,
                    const std::string &&text) {
@@ -35,3 +48,12 @@ void HUD::DrawText(int x, int y, int r, int g, int b,
     }
   }
 }
+
+void HUD::ResetScore() {
+  if (score_ > high_score_) {
+    high_score_ = score_;
+  }
+  score_ = 0;
+}
+
+void HUD::IncreaseScore(unsigned amount) { score_ += amount; }
