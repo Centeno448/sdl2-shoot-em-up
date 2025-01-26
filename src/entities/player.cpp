@@ -66,6 +66,7 @@ void Player::Shoot() {
 void Player::HandleCollision(EntitySharedPtr collided_with) {
   if (collided_with->GetEntityId() == "ENMY_BLLT") {
     --health_;
+    SoundManager::PlaySoundById(PLAYER_HIT_SFX_ID, SoundChannel::CH_PLAYER);
   }
 };
 

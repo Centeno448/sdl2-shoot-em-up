@@ -8,6 +8,7 @@
 void SoundManager::StaticInit() {
   LoadSoundById(BACKGROUND_MUSIC_SFX_ID);
   LoadSoundById(PLAYER_SHOT_SFX_ID);
+  LoadSoundById(PLAYER_HIT_SFX_ID);
   LoadSoundById(PLAYER_DEATH_SFX_ID);
   LoadSoundById(ENEMY_SHOT_SFX_ID);
   LoadSoundById(ENEMY_DEATH_SFX_ID);
@@ -58,6 +59,7 @@ void SoundManager::PlayMusic(std::string id) {
 
 std::map<std::string, std::string> SoundManager::sound_map_ = {
     {PLAYER_SHOT_SFX_ID, PLAYER_SHOT_SFX},
+    {PLAYER_HIT_SFX_ID, PLAYER_HIT_SFX},
     {PLAYER_DEATH_SFX_ID, PLAYER_DEATH_SFX},
     {ENEMY_SHOT_SFX_ID, ENEMY_SHOT_SFX},
     {ENEMY_DEATH_SFX_ID, ENEMY_DEATH_SFX},

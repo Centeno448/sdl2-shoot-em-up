@@ -39,6 +39,7 @@ set(SFX_PREFIX "/sfx")
 set(SFX_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}${SFX_PREFIX}")
 
 set(PLAYER_SHOT_SFX "${SFX_FOLDER}/334227__jradcoolness__laser.ogg")
+set(PLAYER_HIT_SFX "${SFX_FOLDER}/785800__alien_i_trust__pressure-kick-by-alien-i-trust-125_bpm-3.ogg")
 set(PLAYER_DEATH_SFX "${SFX_FOLDER}/245372__quaker540__hq-explosion.ogg")
 set(ENEMY_SHOT_SFX "${SFX_FOLDER}/196914__dpoggioli__laser-gun.ogg")
 set(ENEMY_DEATH_SFX "${SFX_FOLDER}/10 Guage Shotgun-SoundBible.com-74120584.ogg")
