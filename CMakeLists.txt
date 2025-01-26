@@ -35,6 +35,7 @@ set(ENEMY_BULLET_TEXTURE "${GFX_FOLDER}/enemyBullet.png")
 set(BACKGROUND_TEXTURE "${GFX_FOLDER}/background.png")
 set(EXPLOSION_TEXTURE "${GFX_FOLDER}/explosion.png")
 set(FONT_TEXTURE "${GFX_FOLDER}/font.png")
+set(POINTS_TEXTURE "${GFX_FOLDER}/points.png")
 
 set(SFX_PREFIX "/sfx")
 set(SFX_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}${SFX_PREFIX}")

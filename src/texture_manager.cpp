@@ -59,6 +59,7 @@ std::map<std::string, std::string> TextureManager::texture_map_ = {
     {ENEMY_BULLET_ENTITY_ID, ENEMY_BULLET_TEXTURE},
     {BACKGROUND_TEXTURE_ID, BACKGROUND_TEXTURE},
     {EXPLOSION_TEXTURE_ID, EXPLOSION_TEXTURE},
-    {FONT_TEXTURE_ID, FONT_TEXTURE}};
+    {FONT_TEXTURE_ID, FONT_TEXTURE},
+    {POINTS_TEXTURE_ID, POINTS_TEXTURE}};
 
 SDLRendererSharedPtr TextureManager::renderer_ = nullptr;
