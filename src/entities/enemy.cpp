@@ -1,6 +1,8 @@
 #include "entities/enemy.h"
 
 #include "collision_manager.h"
+#include "effects/effect_manager.h"
+#include "effects/explosion.h"
 #include "entities/enemy_bullet.h"
 #include "shootem_math.h"
 #include "world.h"
@@ -44,6 +46,14 @@ void Enemy::RegisterEnemy() {
 void Enemy::HandleCollision(EntitySharedPtr collided_with) {
   if (collided_with->GetEntityId() == "BLLT") {
     --health_;
+  }
+
+  if (health_ <= 0) {
+    const int k_explosion_layers = 20;
+    for (int i = 0; i < k_explosion_layers; ++i) {
+      EffectManager::AddEffect<Explosion>(
+          [this]() { return std::make_shared<Explosion>(x_, y_); }, 1);
+    }
   }
 };
 

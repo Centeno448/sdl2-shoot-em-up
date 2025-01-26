@@ -70,6 +70,7 @@ target_sources(ShootEmUp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/effect_manager.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/star.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/background.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/explosion.cpp
 )
 
 if(WIN32)

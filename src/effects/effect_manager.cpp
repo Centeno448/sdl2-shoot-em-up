@@ -10,28 +10,40 @@
 void EffectManager::StaticInit(SDLRendererSharedPtr renderer) {
   renderer_ = renderer;
 
-  AddEffect<Background>([]() { return std::make_shared<Background>(0); });
-
   for (int i = 0; i < MAX_STARS; ++i) {
     int x = static_cast<int>(ShootEmMath::RandomFloat(1, SCREEN_WIDTH));
     int y = static_cast<int>(ShootEmMath::RandomFloat(1, SCREEN_HEIGHT));
     int speed = static_cast<int>(ShootEmMath::RandomFloat(1.0, 9.0));
 
     AddEffect<Star>(
-        [x, y, speed]() { return std::make_shared<Star>(x, y, speed); });
+        [x, y, speed]() { return std::make_shared<Star>(x, y, speed); }, 0);
   }
+
+  AddEffect<Background>([]() { return std::make_shared<Background>(0); }, 0);
 }
 
 void EffectManager::UpdateEffects() {
-  for (EffectSharedPtr &e : effects_) {
-    e->DoLogic();
+  for (int i = 0; i < MAX_EFFECT_LAYERS; ++i) {
+    auto current_effect = effects_[i].begin();
+    while (current_effect != effects_[i].end()) {
+      if ((*current_effect)->IsDone()) {
+        EffectSharedPtr to_delete = (*current_effect);
+        ++current_effect;
+        effects_[i].remove(to_delete);
+      } else {
+        (*current_effect)->DoLogic();
+        ++current_effect;
+      }
+    }
   }
 }
 
 SDL_Renderer *const EffectManager::GetRenderer() { return renderer_.get(); }
 
 void EffectManager::DrawEffects() {
-  for (EffectSharedPtr &e : effects_) {
-    e->Draw(GetRenderer());
+  for (int i = 0; i < MAX_EFFECT_LAYERS; ++i) {
+    for (EffectSharedPtr &e : effects_[i]) {
+      e->Draw(GetRenderer());
+    }
   }
 }
