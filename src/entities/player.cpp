@@ -7,6 +7,7 @@
 #include "entities/bullet.h"
 #include "input_manager.h"
 #include "log.h"
+#include "sound_manager.h"
 #include "world.h"
 
 void Player::DoLogic() {
@@ -55,6 +56,8 @@ void Player::Shoot() {
 
   // Set firing cooldown
   reload_frames_ = 8;
+
+  SoundManager::PlaySoundById(PLAYER_SHOT_SFX_ID, SoundChannel::CH_PLAYER);
 }
 
 void Player::HandleCollision(EntitySharedPtr collided_with) {
@@ -73,7 +76,10 @@ void Player::SetTextureLoaded(bool is_loaded) {
 
 bool Player::is_texture_loaded_ = false;
 
-void Player::OnDeath() { World::ResetWorld(); }
+void Player::OnDeath() {
+  SoundManager::PlaySoundById(PLAYER_DEATH_SFX_ID, SoundChannel::CH_PLAYER);
+  World::ResetWorld();
+}
 
 void Player::RegisterPlayer() {
   float x = 100, y = 100;

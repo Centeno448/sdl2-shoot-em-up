@@ -6,6 +6,7 @@
 #include "effects/explosion.h"
 #include "entities/enemy_bullet.h"
 #include "shootem_math.h"
+#include "sound_manager.h"
 #include "world.h"
 
 void Enemy::DoLogic() {
@@ -68,6 +69,7 @@ void Enemy::Shoot(EntitySharedPtr target) {
 
   bullet->dx_ *= ENEMY_BULLET_SPEED;
   bullet->dy_ *= ENEMY_BULLET_SPEED;
+  SoundManager::PlaySoundById(ENEMY_SHOT_SFX_ID, SoundChannel::CH_ENEMY);
 }
 
 void Enemy::ResetReloadFrames() {
@@ -78,6 +80,7 @@ void Enemy::ResetReloadFrames() {
 std::string Enemy::GetCollisionLayer() { return collides_with_; }
 
 void Enemy::OnKilled() {
+  SoundManager::PlaySoundById(ENEMY_DEATH_SFX_ID, SoundChannel::CH_ANY);
   SpawnExplosion();
   SpawnDebris();
 }
