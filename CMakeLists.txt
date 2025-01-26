@@ -34,6 +34,7 @@ set(ENEMY_TEXTURE "${GFX_FOLDER}/enemy.png")
 set(ENEMY_BULLET_TEXTURE "${GFX_FOLDER}/enemyBullet.png")
 set(BACKGROUND_TEXTURE "${GFX_FOLDER}/background.png")
 set(EXPLOSION_TEXTURE "${GFX_FOLDER}/explosion.png")
+set(FONT_TEXTURE "${GFX_FOLDER}/font.png")
 
 set(SFX_PREFIX "/sfx")
 set(SFX_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}${SFX_PREFIX}")
@@ -72,6 +73,7 @@ target_sources(ShootEmUp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/collision_manager.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/timer_manager.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/sound_manager.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/hud.cpp
 
   ${CMAKE_CURRENT_SOURCE_DIR}/src/entities/entity.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/entities/bullet.cpp
