@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL.h>
+#include <SDL_mixer.h>
 
 #include <memory>
 
@@ -16,3 +17,5 @@ typedef std::shared_ptr<SDL_Renderer> SDLRendererSharedPtr;
 
 typedef std::unique_ptr<SDL_Window, decltype(&SDLWindowDeleter)>
     SDLWindowUniquePtr;
+
+typedef std::shared_ptr<Mix_Chunk> SDLMixChunkSharedPtr;

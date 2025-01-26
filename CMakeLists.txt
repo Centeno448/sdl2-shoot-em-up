@@ -6,9 +6,10 @@ if(WIN32)
     find_package(SDL2 REQUIRED CONFIG REQUIRED COMPONENTS SDL2)
     find_package(SDL2_ttf REQUIRED CONFIG REQUIRED COMPONENTS SDL2_ttf)
     find_package(SDL2_image REQUIRED CONFIG REQUIRED COMPONENTS SDL2_image)
+    find_package(SDL2_mixer REQUIRED CONFIG REQUIRED COMPONENTS SDL2_mixer)
 else()
     find_package(PkgConfig REQUIRED)
-    pkg_check_modules(SDL2 REQUIRED sdl2 SDL2_ttf SDL2_image)
+    pkg_check_modules(SDL2 REQUIRED sdl2 SDL2_ttf SDL2_image SDL2_mixer)
 endif()
 
 add_library(compiler_flags INTERFACE)
@@ -34,6 +35,14 @@ set(ENEMY_BULLET_TEXTURE "${GFX_FOLDER}/enemyBullet.png")
 set(BACKGROUND_TEXTURE "${GFX_FOLDER}/background.png")
 set(EXPLOSION_TEXTURE "${GFX_FOLDER}/explosion.png")
 
+set(SFX_PREFIX "/sfx")
+set(SFX_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}${SFX_PREFIX}")
+
+set(PLAYER_SHOT_SFX "${SFX_FOLDER}/334227__jradcoolness__laser.oog")
+set(PLAYER_DEATH_SFX "${SFX_FOLDER}/245372__quaker540__hq-explosion")
+set(ENEMY_SHOT_SFX "${SFX_FOLDER}/196914__dpoggioli__laser-gun.ogg")
+set(ENEMY_DEATH_SFX "${SFX_FOLDER}/10 Guage Shotgun-SoundBible.com-74120584.ogg")
+
 set(SHOOTEMUP_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/inc")
 
 configure_file("${SHOOTEMUP_INCLUDE_DIR}/defs.h.in" "${CMAKE_CURRENT_BINARY_DIR}/defs.h" @ONLY)
@@ -43,7 +52,7 @@ target_include_directories(ShootEmUp PRIVATE "${SHOOTEMUP_INCLUDE_DIR}" "${CMAKE
 target_link_libraries(ShootEmUp PRIVATE compiler_flags)
 
 if(WIN32)
-  target_link_libraries(ShootEmUp PRIVATE SDL2::SDL2 SDL2_image::SDL2_image SDL2_ttf::SDL2_ttf)
+  target_link_libraries(ShootEmUp PRIVATE SDL2::SDL2 SDL2_image::SDL2_image SDL2_ttf::SDL2_ttf SDL2_mixer::SDL2_mixer)
 else()
   target_link_libraries(ShootEmUp PRIVATE "${SDL2_LIBRARIES}")
 endif()
@@ -60,6 +69,7 @@ target_sources(ShootEmUp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/shootem_math.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/collision_manager.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/timer_manager.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/sound_manager.cpp
 
   ${CMAKE_CURRENT_SOURCE_DIR}/src/entities/entity.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/entities/bullet.cpp
@@ -77,7 +87,7 @@ target_sources(ShootEmUp
 if(WIN32)
 add_custom_command(
     TARGET ShootEmUp POST_BUILD
-    COMMAND "${CMAKE_COMMAND}" -E copy_if_different "$<TARGET_FILE:SDL2::SDL2>" "$<TARGET_FILE:SDL2_image::SDL2_image>" "$<TARGET_FILE:SDL2_ttf::SDL2_ttf>" "$<TARGET_FILE_DIR:ShootEmUp>"
+    COMMAND "${CMAKE_COMMAND}" -E copy_if_different "$<TARGET_FILE:SDL2::SDL2>" "$<TARGET_FILE:SDL2_image::SDL2_image>" "$<TARGET_FILE:SDL2_ttf::SDL2_ttf>" "$<TARGET_FILE:SDL2_mixer::SDL2_mixer>" "$<TARGET_FILE_DIR:ShootEmUp>"
     VERBATIM
     COMMENT "Copying SDL redistributables"
 )

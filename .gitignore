@@ -1,8 +1,9 @@
 .DS_Store
 .vscode
 
-# images
+# assets
 gfx
+sfx
 
 # CMake build
 build

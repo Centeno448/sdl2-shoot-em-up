@@ -1,6 +1,7 @@
 #include "app.h"
 
 #include <SDL_image.h>
+#include <SDL_mixer.h>
 
 #include <format>
 #include <memory>
@@ -10,6 +11,7 @@
 #include "input_manager.h"
 #include "log.h"
 #include "sdl_wrappers.h"
+#include "sound_manager.h"
 #include "timer_manager.h"
 #include "world.h"
 
@@ -43,6 +45,7 @@ void App::Init() {
     return;
   }
 
+  SoundManager::StaticInit();
   TextureManager::StaticInit(renderer_);
   EffectManager::StaticInit(renderer_);
   World::StaticInit(renderer_);
@@ -80,6 +83,14 @@ bool App::InitSDL() {
                            SDL_GetError()));
     return false;
   }
+
+  if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1) {
+    Log::Error(std::format("Failed to initialize SDL mixer with error: {}",
+                           SDL_GetError()));
+    return false;
+  }
+
+  Mix_AllocateChannels(MAX_SOUND_CHANNELS);
 
   return true;
 }
