@@ -6,7 +6,7 @@
 
 #include "sdl_wrappers.h"
 
-enum SoundChannel { CH_ANY = -1, CH_PLAYER, CH_ENEMY };
+enum SoundChannel { CH_ANY = -1, CH_PLAYER, CH_ENEMY, CH_POINTS };
 
 struct Sound {
   Sound(std::string id, Mix_Chunk* sound) : id_(id) {

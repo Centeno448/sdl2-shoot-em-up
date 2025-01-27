@@ -12,6 +12,7 @@ void SoundManager::StaticInit() {
   LoadSoundById(PLAYER_DEATH_SFX_ID);
   LoadSoundById(ENEMY_SHOT_SFX_ID);
   LoadSoundById(ENEMY_DEATH_SFX_ID);
+  LoadSoundById(POINTS_SFX_ID);
 }
 
 SDLMixChunkSharedPtr SoundManager::LoadSoundById(std::string id) {
@@ -63,7 +64,8 @@ std::map<std::string, std::string> SoundManager::sound_map_ = {
     {PLAYER_DEATH_SFX_ID, PLAYER_DEATH_SFX},
     {ENEMY_SHOT_SFX_ID, ENEMY_SHOT_SFX},
     {ENEMY_DEATH_SFX_ID, ENEMY_DEATH_SFX},
-    {BACKGROUND_MUSIC_SFX_ID, BACKGROUND_MUSIC_SFX}};
+    {BACKGROUND_MUSIC_SFX_ID, BACKGROUND_MUSIC_SFX},
+    {POINTS_SFX_ID, POINTS_SFX}};
 
 SDLMixMusicUniquePtr SoundManager::loaded_music_ =
     SDLMixMusicUniquePtr(nullptr, &SDLMixMusicDeleter);

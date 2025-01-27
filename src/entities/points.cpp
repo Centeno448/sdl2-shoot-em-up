@@ -2,6 +2,7 @@
 
 #include "collision_manager.h"
 #include "hud.h"
+#include "sound_manager.h"
 #include "world.h"
 
 void Points::DoLogic() {
@@ -22,7 +23,8 @@ void Points::SetTextureLoaded(bool is_loaded) {
 
 void Points::HandleCollision(EntitySharedPtr collided_with) {
   if (collided_with->GetEntityId() == "PLYR") {
-    --health_;
+    --health_ = 0;
+    SoundManager::PlaySoundById(POINTS_SFX_ID, SoundChannel::CH_POINTS);
   }
 };
 
