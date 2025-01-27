@@ -1,5 +1,6 @@
 #pragma once
 
+#include "defs.h"
 #include "scenes/scene.h"
 
 class HighscoreScene : public Scene {
@@ -7,4 +8,7 @@ class HighscoreScene : public Scene {
   void DoLogic() override;
   void Draw() override;
   void Init() override;
+
+ private:
+  int scores_[MAX_HIGHSCORES] = {-1};
 };
