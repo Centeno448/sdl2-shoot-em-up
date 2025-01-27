@@ -37,10 +37,6 @@ void Player::DoLogic() {
     dx_ = PLAYER_SPEED;
   }
 
-  if (InputManager::inputs_.at(SDL_SCANCODE_K)) {
-    --health_;
-  }
-
   if (InputManager::inputs_.at(SDL_SCANCODE_SPACE) && reload_frames_ == 0) {
     Shoot();
   }
