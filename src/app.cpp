@@ -2,8 +2,8 @@
 
 #include <SDL_image.h>
 #include <SDL_mixer.h>
-
 #include <fmt/format.h>
+
 #include <memory>
 
 #include "defs.h"
@@ -95,6 +95,8 @@ bool App::InitSDL() {
   }
 
   Mix_AllocateChannels(MAX_SOUND_CHANNELS);
+
+  SDL_ShowCursor(SDL_DISABLE);
 
   return true;
 }
