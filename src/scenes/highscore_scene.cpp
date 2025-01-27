@@ -13,8 +13,8 @@ void HighscoreScene::Init() {}
 void HighscoreScene::DoLogic() {
   EffectManager::UpdateEffects();
 
-  if (InputManager::inputs_.at(SDL_SCANCODE_SPACE)) {
-    InputManager::inputs_.at(SDL_SCANCODE_SPACE) = false;
+  if (InputManager::IsKeyPressed(SDL_SCANCODE_SPACE)) {
+    InputManager::SetKeyPressed(SDL_SCANCODE_SPACE, false);
     SceneManager::ChangeScene(new GameScene());
   }
 }

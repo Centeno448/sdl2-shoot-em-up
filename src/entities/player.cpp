@@ -21,23 +21,23 @@ void Player::DoLogic() {
     --reload_frames_;
   }
 
-  if (InputManager::inputs_.at(SDL_SCANCODE_W)) {
+  if (InputManager::IsKeyPressed(SDL_SCANCODE_W)) {
     dy_ = -PLAYER_SPEED;
   }
 
-  if (InputManager::inputs_.at(SDL_SCANCODE_S)) {
+  if (InputManager::IsKeyPressed(SDL_SCANCODE_S)) {
     dy_ = PLAYER_SPEED;
   }
 
-  if (InputManager::inputs_.at(SDL_SCANCODE_A)) {
+  if (InputManager::IsKeyPressed(SDL_SCANCODE_A)) {
     dx_ = -PLAYER_SPEED;
   }
 
-  if (InputManager::inputs_.at(SDL_SCANCODE_D)) {
+  if (InputManager::IsKeyPressed(SDL_SCANCODE_D)) {
     dx_ = PLAYER_SPEED;
   }
 
-  if (InputManager::inputs_.at(SDL_SCANCODE_SPACE) && reload_frames_ == 0) {
+  if (InputManager::IsKeyPressed(SDL_SCANCODE_SPACE) && reload_frames_ == 0) {
     Shoot();
   }
 

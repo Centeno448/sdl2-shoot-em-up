@@ -3,6 +3,22 @@
 #include "defs.h"
 #include "log.h"
 
+bool InputManager::IsKeyPressed(SDL_Scancode key_code) {
+  if (!inputs_.contains(key_code)) {
+    inputs_[key_code] = false;
+  }
+
+  return inputs_.at(key_code);
+}
+
+void InputManager::SetKeyPressed(SDL_Scancode key_code, bool value) {
+  if (!inputs_.contains(key_code)) {
+    inputs_[key_code];
+  }
+
+  inputs_.at(key_code) = value;
+}
+
 void InputManager::HandleKeyDown(SDL_KeyboardEvent* event) {
   if (event->repeat) {
     return;
