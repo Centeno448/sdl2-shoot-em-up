@@ -18,7 +18,7 @@ void SoundManager::StaticInit() {
 SDLMixChunkSharedPtr SoundManager::LoadSoundById(std::string id) {
   std::string path = sound_map_.at(id);
 
-  Log::Info(std::format("Loading sound {} with path {}", id, path));
+  Log::Info(fmt::format("Loading sound {} with path {}", id, path));
 
   Mix_Chunk* t = Mix_LoadWAV(path.c_str());
 
@@ -35,7 +35,7 @@ SDLMixChunkSharedPtr SoundManager::GetSoundById(std::string id) {
     return found->sound_;
   }
 
-  Log::Error(std::format("Failed to get sound {}. Sound not found", id));
+  Log::Error(fmt::format("Failed to get sound {}. Sound not found", id));
 
   return nullptr;
 }

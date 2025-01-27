@@ -11,7 +11,7 @@ void Entity::Draw(SDL_Renderer* const renderer) {
   dest.y = static_cast<int>(y_);
 
   if (texture_ == nullptr) {
-    Log::Error(std::format("Texture not set for {}", GetEntityId()));
+    Log::Error(fmt::format("Texture not set for {}", GetEntityId()));
     return;
   }
 

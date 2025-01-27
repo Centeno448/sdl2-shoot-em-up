@@ -26,7 +26,15 @@ extern "C"
     int
     main(int argc, char *argv[]) {
   App app;
-  app.Init();
+
+  while (app.ShouldKeepRunning()) {
+    app.Run();
+  }
+
+  if (App::unrecoverable_) {
+    return -1;
+  }
+
   return 0;
 }
 #endif

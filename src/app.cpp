@@ -3,7 +3,7 @@
 #include <SDL_image.h>
 #include <SDL_mixer.h>
 
-#include <format>
+#include <fmt/format.h>
 #include <memory>
 
 #include "defs.h"
@@ -63,7 +63,7 @@ bool App::InitSDL() {
 
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     Log::Error(
-        std::format("Failed to initialize SDL with error: {}", SDL_GetError()));
+        fmt::format("Failed to initialize SDL with error: {}", SDL_GetError()));
     return false;
   }
 
@@ -72,7 +72,7 @@ bool App::InitSDL() {
                                  SCREEN_HEIGHT, window_flags));
 
   if (!window_) {
-    Log::Error(std::format("Failed to create SDL window with error: {}",
+    Log::Error(fmt::format("Failed to create SDL window with error: {}",
                            SDL_GetError()));
     return false;
   }
@@ -83,13 +83,13 @@ bool App::InitSDL() {
                   &SDLRendererDeleter);
 
   if (!renderer_) {
-    Log::Error(std::format("Failed to create SDL renderer with error: {}",
+    Log::Error(fmt::format("Failed to create SDL renderer with error: {}",
                            SDL_GetError()));
     return false;
   }
 
   if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1) {
-    Log::Error(std::format("Failed to initialize SDL mixer with error: {}",
+    Log::Error(fmt::format("Failed to initialize SDL mixer with error: {}",
                            SDL_GetError()));
     return false;
   }
@@ -146,7 +146,7 @@ void App::DrawScene() {
 }
 
 void App::StopApp(std::string error) {
-  Log::Error(std::format("Stopping app due to unrecoverable error: {}", error));
+  Log::Error(fmt::format("Stopping app due to unrecoverable error: {}", error));
   unrecoverable_ = true;
   should_keep_running_ = false;
 }

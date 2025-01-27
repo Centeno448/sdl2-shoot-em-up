@@ -3,7 +3,7 @@
 #include <SDL_image.h>
 
 #include <algorithm>
-#include <format>
+#include <fmt/format.h>
 
 #include "defs.h"
 #include "log.h"
@@ -25,21 +25,21 @@ SDLTextureSharedPtr TextureManager::GetTextureById(std::string id) {
     return found->texture_;
   }
 
-  Log::Error(std::format("Failed to get texture {}. Texture not found", id));
+  Log::Error(fmt::format("Failed to get texture {}. Texture not found", id));
 
   return nullptr;
 }
 
 SDLTextureSharedPtr TextureManager::LoadTextureById(std::string id) {
   if (!renderer_) {
-    Log::Error(std::format(
+    Log::Error(fmt::format(
         "Failed to load texture {}. No renderer set in TextureManager!", id));
     return nullptr;
   }
 
   std::string path = texture_map_.at(id);
 
-  Log::Info(std::format("Loading texture {} with path {}", id, path));
+  Log::Info(fmt::format("Loading texture {} with path {}", id, path));
 
   SDL_Texture* t = IMG_LoadTexture(GetRenderer(), path.c_str());
 

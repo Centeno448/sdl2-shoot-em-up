@@ -1,6 +1,6 @@
 #include "hud.h"
 
-#include <format>
+#include <fmt/format.h>
 
 #include "defs.h"
 #include "texture_manager.h"
@@ -10,13 +10,13 @@ void HUD::StaticInit(SDLRendererSharedPtr renderer) { renderer_ = renderer; }
 SDL_Renderer *const HUD::GetRenderer() { return renderer_.get(); }
 
 void HUD::Draw() {
-  DrawText(10, 10, 255, 255, 255, std::format("SCORE: {}", score_));
+  DrawText(10, 10, 255, 255, 255, fmt::format("SCORE: {}", score_));
 
   if (score_ > high_score_) {
-    DrawText(960, 10, 0, 255, 0, std::format("HIGH SCORE: {}", score_));
+    DrawText(960, 10, 0, 255, 0, fmt::format("HIGH SCORE: {}", score_));
   } else {
     DrawText(960, 10, 255, 255, 255,
-             std::format("HIGH SCORE: {}", high_score_));
+             fmt::format("HIGH SCORE: {}", high_score_));
   }
 }
 
