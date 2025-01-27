@@ -11,6 +11,7 @@
 #include "hud.h"
 #include "input_manager.h"
 #include "log.h"
+#include "scenes/game_scene.h"
 #include "sdl_wrappers.h"
 #include "sound_manager.h"
 #include "timer_manager.h"
@@ -27,9 +28,8 @@ void App::Run() {
 
   HandleEvents();
 
-  DoLogic();
-
-  DrawScene();
+  current_scene_->DoLogic();
+  current_scene_->Draw();
 
   PresentScene();
 
@@ -52,9 +52,18 @@ void App::Init() {
   World::StaticInit(renderer_);
   HUD::StaticInit(renderer_);
 
-  World::InitialState();
+  ChangeScene(new GameScene());
 
   SoundManager::PlayMusic(BACKGROUND_MUSIC_SFX_ID);
+}
+
+void App::ChangeScene(Scene* const new_scene) {
+  if (current_scene_ != nullptr) {
+    current_scene_->Cleanup();
+  }
+
+  current_scene_.reset(new_scene);
+  current_scene_->Init();
 }
 
 bool App::InitSDL() {
@@ -130,22 +139,6 @@ void App::PrepareScene() {
 }
 
 void App::PresentScene() { SDL_RenderPresent(renderer_.get()); }
-
-void App::DoLogic() {
-  EffectManager::UpdateEffects();
-
-  TimerManager::ProcessTimers();
-
-  World::UpdateWorld();
-}
-
-void App::DrawScene() {
-  EffectManager::DrawEffects();
-
-  World::DrawWorld();
-
-  HUD::Draw();
-}
 
 void App::StopApp(std::string error) {
   Log::Error(fmt::format("Stopping app due to unrecoverable error: {}", error));

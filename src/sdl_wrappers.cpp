@@ -1,7 +1,5 @@
 #include "sdl_wrappers.h"
 
-#include "log.h"
-
 void SDLTextureDeleter(SDL_Texture* texture) { SDL_DestroyTexture(texture); }
 
 void SDLRendererDeleter(SDL_Renderer* renderer) {

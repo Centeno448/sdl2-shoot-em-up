@@ -18,11 +18,13 @@ class World {
 
   static void DrawWorld();
 
+  static void ClearEntitiesNextTick();
+  static void ClearEntitiesNow();
+
   template <typename T, typename F>
   static EntitySharedPtr AddEntityToWorld(F f);
 
  private:
-  static void ClearEntities();
   static std::forward_list<EntitySharedPtr> entities_;
   static SDL_Renderer* const GetRenderer();
   inline static SDLRendererSharedPtr renderer_ = nullptr;

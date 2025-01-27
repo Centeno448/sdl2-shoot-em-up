@@ -30,7 +30,7 @@ void World::ResetWorld() {
 void World::StaticInit(SDLRendererSharedPtr renderer) { renderer_ = renderer; }
 
 void World::InitialState() {
-  ClearEntities();
+  ClearEntitiesNextTick();
 
   CollisionManager::ClearLayers();
 
@@ -41,11 +41,13 @@ void World::InitialState() {
   TimerManager::RegisterTimerCallback(60, false, &Enemy::RegisterEnemy);
 }
 
-void World::ClearEntities() {
+void World::ClearEntitiesNextTick() {
   for (auto &e : entities_) {
     e->health_ = 0;
   }
 }
+
+void World::ClearEntitiesNow() { entities_.clear(); }
 
 void World::UpdateWorld() {
   auto current_entity = entities_.begin();

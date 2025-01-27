@@ -47,3 +47,17 @@ void EffectManager::DrawEffects() {
     }
   }
 }
+
+void EffectManager::ClearEffects() {
+  for (int i = 0; i < MAX_EFFECT_LAYERS; ++i) {
+    effects_[i].clear();
+  }
+}
+
+void EffectManager::ClearEffectsAtLayer(unsigned layer) {
+  if (layer > MAX_EFFECT_LAYERS) {
+    return;
+  }
+
+  effects_[layer].clear();
+}

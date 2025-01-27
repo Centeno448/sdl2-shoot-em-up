@@ -1,9 +1,9 @@
 #include "texture_manager.h"
 
 #include <SDL_image.h>
+#include <fmt/format.h>
 
 #include <algorithm>
-#include <fmt/format.h>
 
 #include "defs.h"
 #include "log.h"
@@ -12,7 +12,7 @@ void TextureManager::StaticInit(SDLRendererSharedPtr renderer) {
   renderer_ = renderer;
 
   LoadTextureById(BACKGROUND_TEXTURE_ID);
-  LoadTextureById(EXPLOSION_TEXTURE_ID);
+
   LoadTextureById(FONT_TEXTURE_ID);
 }
 
@@ -46,6 +46,16 @@ SDLTextureSharedPtr TextureManager::LoadTextureById(std::string id) {
   loaded_textures_.emplace_back(id, t);
 
   return loaded_textures_.back().texture_;
+}
+
+void TextureManager::UnloadTextureById(std::string id) {
+  auto found =
+      std::find_if(loaded_textures_.cbegin(), loaded_textures_.cend(),
+                   [&id](Texture texture) { return texture.id_ == id; });
+
+  if (found != loaded_textures_.cend()) {
+    loaded_textures_.erase(found);
+  }
 }
 
 SDL_Renderer* const TextureManager::GetRenderer() { return renderer_.get(); }

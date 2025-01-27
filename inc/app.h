@@ -4,17 +4,18 @@
 
 #include <forward_list>
 #include <memory>
+#include <string>
 
 #include "defs.h"
-#include "entities/entity.h"
+#include "scenes/scene.h"
 #include "sdl_wrappers.h"
 
 class App {
  public:
-  friend class Entity;
   App()
       : renderer_(nullptr, &SDLRendererDeleter),
-        window_(nullptr, &SDLWindowDeleter) {
+        window_(nullptr, &SDLWindowDeleter),
+        current_scene_(nullptr, &SceneDeleter) {
     Init();
   };
 
@@ -39,13 +40,14 @@ class App {
 
   void PrepareScene();
 
-  void DoLogic();
-
-  void DrawScene();
-
   void PresentScene();
 
+  void ChangeScene(Scene* new_scene);
+
+  SceneUniquePtr current_scene_;
+
   SDLRendererSharedPtr renderer_;
+
   SDLWindowUniquePtr window_;
   static bool should_keep_running_;
 };

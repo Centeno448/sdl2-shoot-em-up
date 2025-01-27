@@ -12,8 +12,6 @@ class Entity {
   typedef std::shared_ptr<Entity> EntitySharedPtr;
   Entity(float x, float y) : x_(x), y_(y), health_(1) {};
 
-  ~Entity() { texture_.reset(); }
-
   float x_;
   float y_;
   float dy_ = 0;

@@ -13,6 +13,9 @@ class EffectManager {
   static void UpdateEffects();
   static void StaticInit(SDLRendererSharedPtr renderer);
 
+  static void ClearEffects();
+  static void ClearEffectsAtLayer(unsigned layer);
+
   template <typename T, typename F>
   static EffectSharedPtr AddEffect(F f, unsigned layer);
 

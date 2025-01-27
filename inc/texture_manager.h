@@ -34,4 +34,6 @@ class TextureManager {
   static SDLTextureSharedPtr LoadTextureById(std::string id);
 
   static SDLTextureSharedPtr GetTextureById(std::string id);
+
+  static void UnloadTextureById(std::string id);
 };
