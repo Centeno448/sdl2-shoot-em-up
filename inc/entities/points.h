@@ -9,7 +9,7 @@ class Points : public Entity {
   Points(float x, float y, float dx) : Entity(x, y) {
     health_ = FPS_TARGET * 4;
     dx_ = dx;
-    dy_ = ShootEmMath::RandomFloat(2, 6);
+    dy_ = ShootEmMath::RandomFloat(-6, 6);
   };
 
   void DoLogic() override;
