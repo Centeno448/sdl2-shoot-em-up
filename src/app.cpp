@@ -11,7 +11,7 @@
 #include "hud.h"
 #include "input_manager.h"
 #include "log.h"
-#include "scenes/game_scene.h"
+#include "scenes/scene_manager.h"
 #include "sdl_wrappers.h"
 #include "sound_manager.h"
 #include "timer_manager.h"
@@ -28,8 +28,11 @@ void App::Run() {
 
   HandleEvents();
 
-  current_scene_->DoLogic();
-  current_scene_->Draw();
+  auto current_scene = SceneManager::GetCurrentScene();
+  if (current_scene != nullptr) {
+    current_scene->DoLogic();
+    current_scene->Draw();
+  }
 
   PresentScene();
 
@@ -52,18 +55,9 @@ void App::Init() {
   World::StaticInit(renderer_);
   HUD::StaticInit(renderer_);
 
-  ChangeScene(new GameScene());
+  SceneManager::StaticInit();
 
   SoundManager::PlayMusic(BACKGROUND_MUSIC_SFX_ID);
-}
-
-void App::ChangeScene(Scene* const new_scene) {
-  if (current_scene_ != nullptr) {
-    current_scene_->Cleanup();
-  }
-
-  current_scene_.reset(new_scene);
-  current_scene_->Init();
 }
 
 bool App::InitSDL() {

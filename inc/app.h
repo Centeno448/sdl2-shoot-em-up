@@ -14,8 +14,7 @@ class App {
  public:
   App()
       : renderer_(nullptr, &SDLRendererDeleter),
-        window_(nullptr, &SDLWindowDeleter),
-        current_scene_(nullptr, &SceneDeleter) {
+        window_(nullptr, &SDLWindowDeleter) {
     Init();
   };
 
@@ -41,10 +40,6 @@ class App {
   void PrepareScene();
 
   void PresentScene();
-
-  void ChangeScene(Scene* new_scene);
-
-  SceneUniquePtr current_scene_;
 
   SDLRendererSharedPtr renderer_;
 

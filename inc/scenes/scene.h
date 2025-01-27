@@ -12,4 +12,4 @@ class Scene {
 
 void SceneDeleter(Scene* scene);
 
-typedef std::unique_ptr<Scene, decltype(&SceneDeleter)> SceneUniquePtr;
+typedef std::shared_ptr<Scene> SceneSharedPtr;

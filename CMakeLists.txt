@@ -86,7 +86,9 @@ target_sources(ShootEmUp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/hud.cpp
 
   ${CMAKE_CURRENT_SOURCE_DIR}/src/scenes/scene.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/scenes/scene_manager.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/scenes/game_scene.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/scenes/highscore_scene.cpp
 
   ${CMAKE_CURRENT_SOURCE_DIR}/src/entities/entity.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/entities/bullet.cpp
