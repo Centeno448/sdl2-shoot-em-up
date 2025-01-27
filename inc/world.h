@@ -22,6 +22,7 @@ class World {
   static EntitySharedPtr AddEntityToWorld(F f);
 
  private:
+  static void ClearEntities();
   static std::forward_list<EntitySharedPtr> entities_;
   static SDL_Renderer* const GetRenderer();
   inline static SDLRendererSharedPtr renderer_ = nullptr;

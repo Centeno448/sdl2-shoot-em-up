@@ -34,3 +34,19 @@ bool CollisionManager::DetermineCollision(EntitySharedPtr lhs,
   return (std::max(x1, x2) < std::min(x1 + w1, x2 + w2)) &&
          (std::max(y1, y2) < std::min(y1 + h1, y2 + h2));
 }
+
+void CollisionManager::ClearLayers() {
+  for (auto &t : layers_) {
+    t.second.clear();
+  }
+}
+
+void CollisionManager::AddEntityToLayer(std::string layer_id,
+                                        EntitySharedPtr entity) {
+  layers_.at(layer_id).push_front(entity);
+}
+
+void CollisionManager::RemoveEntityFromLayer(std::string layer_id,
+                                             EntitySharedPtr entity) {
+  layers_.at(layer_id).remove(entity);
+}

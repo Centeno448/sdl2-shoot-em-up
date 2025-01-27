@@ -30,19 +30,21 @@ void World::ResetWorld() {
 void World::StaticInit(SDLRendererSharedPtr renderer) { renderer_ = renderer; }
 
 void World::InitialState() {
-  for (auto &e : World::entities_) {
-    e->health_ = 0;
-  }
+  ClearEntities();
 
-  for (auto &t : CollisionManager::layers_) {
-    t.second.clear();
-  }
+  CollisionManager::ClearLayers();
 
   HUD::ResetScore();
 
   TimerManager::RegisterTimerCallback(0, true, &Player::RegisterPlayer);
 
   TimerManager::RegisterTimerCallback(60, false, &Enemy::RegisterEnemy);
+}
+
+void World::ClearEntities() {
+  for (auto &e : entities_) {
+    e->health_ = 0;
+  }
 }
 
 void World::UpdateWorld() {
@@ -55,7 +57,7 @@ void World::UpdateWorld() {
       entities_.remove(to_delete);
       std::string collision_layer = to_delete->GetCollisionLayer();
       if (collision_layer.size()) {
-        CollisionManager::layers_.at(collision_layer).remove(to_delete);
+        CollisionManager::RemoveEntityFromLayer(collision_layer, to_delete);
       }
     } else {
       (*current_entity)->DoLogic();

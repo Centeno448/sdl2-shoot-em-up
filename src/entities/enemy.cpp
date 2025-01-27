@@ -44,7 +44,7 @@ void Enemy::RegisterEnemy() {
   EntitySharedPtr entity = World::AddEntityToWorld<Enemy>(
       []() { return std::make_shared<Enemy>(); });
 
-  CollisionManager::layers_.at(BULLET_ENTITY_ID).push_front(entity);
+  CollisionManager::AddEntityToLayer(BULLET_ENTITY_ID, entity);
 }
 
 void Enemy::HandleCollision(EntitySharedPtr collided_with) {

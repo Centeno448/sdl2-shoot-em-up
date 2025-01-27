@@ -97,8 +97,8 @@ void Player::RegisterPlayer() {
   EntitySharedPtr entity = World::AddEntityToWorld<Player>(
       [x, y]() { return std::make_shared<Player>(x, y); });
 
-  CollisionManager::layers_.at(ENEMY_BULLET_ENTITY_ID).push_front(entity);
-  CollisionManager::layers_.at(POINTS_ENTITY_ID).push_front(entity);
+  CollisionManager::AddEntityToLayer(ENEMY_BULLET_ENTITY_ID, entity);
+  CollisionManager::AddEntityToLayer(POINTS_ENTITY_ID, entity);
 }
 
 void Player::SpawnExplosion() {
