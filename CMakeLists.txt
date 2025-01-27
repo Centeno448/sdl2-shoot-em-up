@@ -7,7 +7,13 @@ if(WIN32)
     find_package(SDL2_ttf REQUIRED CONFIG REQUIRED COMPONENTS SDL2_ttf)
     find_package(SDL2_image REQUIRED CONFIG REQUIRED COMPONENTS SDL2_image)
     find_package(SDL2_mixer REQUIRED CONFIG REQUIRED COMPONENTS SDL2_mixer)
-    find_package(fmt REQUIRED CONFIG REQUIRED COMPONENTS fmt)
+    include(FetchContent)
+
+    FetchContent_Declare(
+      fmt
+      GIT_REPOSITORY https://github.com/fmtlib/fmt
+      GIT_TAG        e69e5f977d458f2650bb346dadf2ad30c5320281) # 10.2.1
+    FetchContent_MakeAvailable(fmt)
 else()
     find_package(fmt REQUIRED)
     find_package(PkgConfig REQUIRED)
