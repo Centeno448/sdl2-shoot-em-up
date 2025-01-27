@@ -33,28 +33,51 @@ target_compile_options(compiler_flags INTERFACE
 
 add_executable(ShootEmUp WIN32)
 
-set(GFX_PREFIX "/gfx")
-set(GFX_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}${GFX_PREFIX}")
+set(GFX_SUFFIX "/gfx")
+set(GFX_FOLDER_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}${GFX_SUFFIX}")
 
-set(PLAYER_TEXTURE "${GFX_FOLDER}/player.png")
-set(BULLET_TEXTURE "${GFX_FOLDER}/playerBullet.png")
-set(ENEMY_TEXTURE "${GFX_FOLDER}/enemy.png")
-set(ENEMY_BULLET_TEXTURE "${GFX_FOLDER}/enemyBullet.png")
-set(BACKGROUND_TEXTURE "${GFX_FOLDER}/background.png")
-set(EXPLOSION_TEXTURE "${GFX_FOLDER}/explosion.png")
-set(FONT_TEXTURE "${GFX_FOLDER}/font.png")
-set(POINTS_TEXTURE "${GFX_FOLDER}/points.png")
+if(WIN32)
+  set(GFX_FOLDER_BINARY "${CMAKE_CURRENT_BINARY_DIR}/Debug${GFX_SUFFIX}")
+else()
+  set(GFX_FOLDER_BINARY "${CMAKE_CURRENT_BINARY_DIR}${GFX_SUFFIX}")
+endif()
 
-set(SFX_PREFIX "/sfx")
-set(SFX_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}${SFX_PREFIX}")
+set(PLAYER_TEXTURE "${GFX_FOLDER_BINARY}/player.png")
+set(BULLET_TEXTURE "${GFX_FOLDER_BINARY}/playerBullet.png")
+set(ENEMY_TEXTURE "${GFX_FOLDER_BINARY}/enemy.png")
+set(ENEMY_BULLET_TEXTURE "${GFX_FOLDER_BINARY}/enemyBullet.png")
+set(BACKGROUND_TEXTURE "${GFX_FOLDER_BINARY}/background.png")
+set(EXPLOSION_TEXTURE "${GFX_FOLDER_BINARY}/explosion.png")
+set(FONT_TEXTURE "${GFX_FOLDER_BINARY}/font.png")
+set(POINTS_TEXTURE "${GFX_FOLDER_BINARY}/points.png")
 
-set(PLAYER_SHOT_SFX "${SFX_FOLDER}/334227__jradcoolness__laser.ogg")
-set(PLAYER_HIT_SFX "${SFX_FOLDER}/785800__alien_i_trust__pressure-kick-by-alien-i-trust-125_bpm-3.ogg")
-set(PLAYER_DEATH_SFX "${SFX_FOLDER}/245372__quaker540__hq-explosion.ogg")
-set(ENEMY_SHOT_SFX "${SFX_FOLDER}/196914__dpoggioli__laser-gun.ogg")
-set(ENEMY_DEATH_SFX "${SFX_FOLDER}/10 Guage Shotgun-SoundBible.com-74120584.ogg")
-set(POINTS_SFX "${SFX_FOLDER}/342749__rhodesmas__notification-01.ogg")
-set(BACKGROUND_MUSIC_SFX "${SFX_FOLDER}/music/Mercury.ogg")
+set(DATA_SUFFIX "/data")
+set(DATA_FOLDER_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}${DATA_SUFFIX}")
+
+if(WIN32)
+  set(DATA_FOLDER_BINARY "${CMAKE_CURRENT_BINARY_DIR}/Debug${DATA_SUFFIX}")
+else()
+  set(DATA_FOLDER_BINARY "${CMAKE_CURRENT_BINARY_DIR}${DATA_SUFFIX}")
+endif()
+
+set(HIGHSCORE_FILE "${DATA_FOLDER_BINARY}/highscores.txt")
+
+set(SFX_SUFFIX "/sfx")
+set(SFX_FOLDER_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}${SFX_SUFFIX}")
+
+if(WIN32)
+  set(SFX_FOLDER_BINARY "${CMAKE_CURRENT_BINARY_DIR}/Debug${SFX_SUFFIX}")
+else()
+  set(SFX_FOLDER_BINARY "${CMAKE_CURRENT_BINARY_DIR}${SFX_SUFFIX}")
+endif()
+
+set(PLAYER_SHOT_SFX "${SFX_FOLDER_BINARY}/334227__jradcoolness__laser.ogg")
+set(PLAYER_HIT_SFX "${SFX_FOLDER_BINARY}/785800__alien_i_trust__pressure-kick-by-alien-i-trust-125_bpm-3.ogg")
+set(PLAYER_DEATH_SFX "${SFX_FOLDER_BINARY}/245372__quaker540__hq-explosion.ogg")
+set(ENEMY_SHOT_SFX "${SFX_FOLDER_BINARY}/196914__dpoggioli__laser-gun.ogg")
+set(ENEMY_DEATH_SFX "${SFX_FOLDER_BINARY}/10 Guage Shotgun-SoundBible.com-74120584.ogg")
+set(POINTS_SFX "${SFX_FOLDER_BINARY}/342749__rhodesmas__notification-01.ogg")
+set(BACKGROUND_MUSIC_SFX "${SFX_FOLDER_BINARY}/music/Mercury.ogg")
 
 set(SHOOTEMUP_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/inc")
 
@@ -115,14 +138,21 @@ endif()
 
 add_custom_command(
     TARGET ShootEmUp POST_BUILD
-    COMMAND "${CMAKE_COMMAND}" -E copy_directory_if_different "${GFX_FOLDER}" "$<TARGET_FILE_DIR:ShootEmUp>${GFX_PREFIX}"
+    COMMAND "${CMAKE_COMMAND}" -E copy_directory_if_different "${GFX_FOLDER_SOURCE}" "$<TARGET_FILE_DIR:ShootEmUp>${GFX_SUFFIX}"
     VERBATIM
     COMMENT "Copying GFX"
 )
 
 add_custom_command(
     TARGET ShootEmUp POST_BUILD
-    COMMAND "${CMAKE_COMMAND}" -E copy_directory_if_different "${SFX_FOLDER}" "$<TARGET_FILE_DIR:ShootEmUp>${SFX_PREFIX}"
+    COMMAND "${CMAKE_COMMAND}" -E copy_directory_if_different "${SFX_FOLDER_SOURCE}" "$<TARGET_FILE_DIR:ShootEmUp>${SFX_SUFFIX}"
     VERBATIM
     COMMENT "Copying SFX"
+)
+
+add_custom_command(
+    TARGET ShootEmUp POST_BUILD
+    COMMAND "${CMAKE_COMMAND}" -E copy_directory_if_different "${DATA_FOLDER_SOURCE}" "$<TARGET_FILE_DIR:ShootEmUp>${DATA_SUFFIX}"
+    VERBATIM
+    COMMENT "Copying data"
 )
