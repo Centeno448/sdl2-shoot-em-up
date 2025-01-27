@@ -2,12 +2,14 @@
 
 #include "defs.h"
 #include "entity.h"
+#include "shootem_math.h"
 
 class Points : public Entity {
  public:
   Points(float x, float y, float dx) : Entity(x, y) {
-    health_ = 1;
+    health_ = FPS_TARGET * 4;
     dx_ = dx;
+    dy_ = ShootEmMath::RandomFloat(2, 6);
   };
 
   void DoLogic() override;

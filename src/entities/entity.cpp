@@ -24,7 +24,7 @@ std::string Entity::GetEntityId() { return std::string("IDK"); }
 
 void Entity::DoLogic() {}
 
-bool Entity::IsDead() { return health_ == 0; }
+bool Entity::IsDead() { return health_ <= 0; }
 
 bool Entity::IsTextureLoaded() { return true; }
 

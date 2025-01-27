@@ -10,7 +10,14 @@ void Points::DoLogic() {
     health_ = 0;
   }
 
+  if (y_ > SCREEN_HEIGHT || y_ < 0) {
+    dy_ *= -1;
+  }
+
+  --health_;
+
   x_ += dx_;
+  y_ += dy_;
 }
 
 std::string Points::GetEntityId() { return entity_id_; }
