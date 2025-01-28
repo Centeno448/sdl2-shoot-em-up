@@ -37,6 +37,8 @@ EffectSharedPtr EffectManager::AddEffect(F f, unsigned layer) {
 
   EffectSharedPtr shared_effect = std::static_pointer_cast<Effect>(shared_t);
 
+  shared_effect->ConfigureEffect();
+
   effects_[layer].emplace_front(shared_effect);
 
   return shared_effect;

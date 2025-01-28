@@ -28,10 +28,7 @@ void GameScene::Draw() {
   HUD::Draw();
 }
 
-void GameScene::Init() {
-  TextureManager::LoadTexture(EXPLOSION_TEXTURE_ID, EXPLOSION_TEXTURE);
-  World::InitialState();
-};
+void GameScene::Init() { World::InitialState(); };
 
 void GameScene::Cleanup() {
   CollisionManager::ClearLayers();

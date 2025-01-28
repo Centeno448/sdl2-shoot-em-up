@@ -51,30 +51,36 @@ void Explosion::DoLogic() {
 }
 
 void Explosion::Draw(SDL_Renderer *const renderer) {
-  SDLTextureSharedPtr explosion =
-      TextureManager::GetTextureById(EXPLOSION_TEXTURE_ID);
-
   SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_ADD);
-  SDL_SetTextureBlendMode(explosion.get(), SDL_BLENDMODE_ADD);
+  SDL_SetTextureBlendMode(texture_.get(), SDL_BLENDMODE_ADD);
 
-  SDL_SetTextureColorMod(explosion.get(), r_, g_, b_);
-  SDL_SetTextureAlphaMod(explosion.get(), a_);
+  SDL_SetTextureColorMod(texture_.get(), r_, g_, b_);
+  SDL_SetTextureAlphaMod(texture_.get(), a_);
 
   SDL_Rect dest;
 
   dest.x = static_cast<int>(x_);
   dest.y = static_cast<int>(y_);
-  SDL_QueryTexture(explosion.get(), NULL, NULL, &dest.w, &dest.h);
+  SDL_QueryTexture(texture_.get(), NULL, NULL, &dest.w, &dest.h);
 
-  SDL_RenderCopy(renderer, explosion.get(), NULL, &dest);
+  SDL_RenderCopy(renderer, texture_.get(), NULL, &dest);
 
   SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
 }
 
-bool Explosion::IsTextureLoaded() { return is_texture_loaded_; }
-
-void Explosion::SetTextureLoaded(bool is_loaded) {
-  is_texture_loaded_ = is_loaded;
-}
-
 bool Explosion::IsDone() { return a_ <= 0; }
+
+void Explosion::ConfigureEffect() {
+  if (!is_texture_loaded_) {
+    SDLTextureSharedPtr texture =
+        TextureManager::LoadTexture(effect_id_, EXPLOSION_TEXTURE);
+
+    texture_ = texture;
+
+    is_texture_loaded_ = true;
+  } else {
+    SDLTextureSharedPtr texture = TextureManager::GetTextureById(effect_id_);
+
+    texture_ = texture;
+  }
+}

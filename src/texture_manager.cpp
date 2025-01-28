@@ -12,7 +12,6 @@ void TextureManager::StaticInit(SDLRendererSharedPtr renderer) {
   renderer_ = renderer;
 
   LoadTexture(BACKGROUND_TEXTURE_ID, BACKGROUND_TEXTURE);
-
   LoadTexture(FONT_TEXTURE_ID, FONT_TEXTURE);
 }
 
