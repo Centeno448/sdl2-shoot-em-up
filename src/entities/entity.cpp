@@ -26,12 +26,10 @@ void Entity::DoLogic() {}
 
 bool Entity::IsDead() { return health_ <= 0; }
 
-bool Entity::IsTextureLoaded() { return true; }
-
-void Entity::SetTextureLoaded(bool is_loaded) {}
-
 std::string Entity::GetCollisionLayer() { return std::string(); }
 
 void Entity::HandleCollision(EntitySharedPtr collied_with) {}
 
 void Entity::OnDeath() {}
+
+void Entity::ConfigureEntity() {}

@@ -17,9 +17,7 @@ class Enemy : public Entity {
 
   std::string GetEntityId() override;
 
-  bool IsTextureLoaded() override;
-
-  void SetTextureLoaded(bool is_loaded) override;
+  void ConfigureEntity() override;
 
   void HandleCollision(EntitySharedPtr collided_with) override;
 
@@ -45,4 +43,6 @@ class Enemy : public Entity {
   void SpawnExplosion();
 
   void SpawnDebris();
+
+  void ConfigureTexture();
 };

@@ -28,10 +28,6 @@ class Entity {
 
   virtual void DoLogic();
 
-  virtual bool IsTextureLoaded();
-
-  virtual void SetTextureLoaded(bool is_loaded);
-
   virtual std::string GetEntityId();
 
   virtual std::string GetCollisionLayer();
@@ -39,6 +35,8 @@ class Entity {
   virtual void HandleCollision(EntitySharedPtr collided_with);
 
   virtual void OnDeath();
+
+  virtual void ConfigureEntity();
 
   SDLTextureSharedPtr texture_ = nullptr;
 };

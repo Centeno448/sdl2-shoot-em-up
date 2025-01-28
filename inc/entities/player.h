@@ -12,13 +12,11 @@ class Player : public Entity {
 
   std::string GetEntityId() override;
 
-  bool IsTextureLoaded() override;
-
-  void SetTextureLoaded(bool is_loaded) override;
-
   void HandleCollision(EntitySharedPtr collided_with) override;
 
   void OnDeath() override;
+
+  void ConfigureEntity();
 
   static void RegisterPlayer();
 
@@ -32,4 +30,6 @@ class Player : public Entity {
   void SpawnExplosion();
 
   void SpawnDebris();
+
+  void ConfigureTexture();
 };

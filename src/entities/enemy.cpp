@@ -32,12 +32,6 @@ void Enemy::DoLogic() {
 
 std::string Enemy::GetEntityId() { return entity_id_; }
 
-bool Enemy::IsTextureLoaded() { return is_texture_loaded_; }
-
-void Enemy::SetTextureLoaded(bool is_loaded) {
-  is_texture_loaded_ = is_loaded;
-};
-
 void Enemy::RegisterEnemy() {
   EntitySharedPtr entity = World::AddEntityToWorld<Enemy>(
       []() { return std::make_shared<Enemy>(); });
@@ -122,3 +116,22 @@ void Enemy::SpawnDebris() {
     }
   }
 }
+
+void Enemy::ConfigureTexture() {
+  if (!is_texture_loaded_) {
+    SDLTextureSharedPtr texture =
+        TextureManager::LoadTexture(entity_id_, ENEMY_TEXTURE);
+
+    texture_ = texture;
+
+    is_texture_loaded_ = true;
+  } else {
+    SDLTextureSharedPtr texture = TextureManager::GetTextureById(entity_id_);
+
+    texture_ = texture;
+  }
+
+  SDL_QueryTexture(texture_.get(), NULL, NULL, &w_, &h_);
+}
+
+void Enemy::ConfigureEntity() { ConfigureTexture(); }

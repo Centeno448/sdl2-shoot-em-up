@@ -11,9 +11,9 @@
 void TextureManager::StaticInit(SDLRendererSharedPtr renderer) {
   renderer_ = renderer;
 
-  LoadTextureById(BACKGROUND_TEXTURE_ID);
+  LoadTexture(BACKGROUND_TEXTURE_ID, BACKGROUND_TEXTURE);
 
-  LoadTextureById(FONT_TEXTURE_ID);
+  LoadTexture(FONT_TEXTURE_ID, FONT_TEXTURE);
 }
 
 SDLTextureSharedPtr TextureManager::GetTextureById(std::string id) {
@@ -30,14 +30,13 @@ SDLTextureSharedPtr TextureManager::GetTextureById(std::string id) {
   return nullptr;
 }
 
-SDLTextureSharedPtr TextureManager::LoadTextureById(std::string id) {
+SDLTextureSharedPtr TextureManager::LoadTexture(std::string id,
+                                                std::string path) {
   if (!renderer_) {
     Log::Error(fmt::format(
         "Failed to load texture {}. No renderer set in TextureManager!", id));
     return nullptr;
   }
-
-  std::string path = texture_map_.at(id);
 
   Log::Info(fmt::format("Loading texture {} with path {}", id, path));
 
@@ -59,17 +58,3 @@ void TextureManager::UnloadTextureById(std::string id) {
 }
 
 SDL_Renderer* const TextureManager::GetRenderer() { return renderer_.get(); }
-
-std::vector<Texture> TextureManager::loaded_textures_ = {};
-
-std::map<std::string, std::string> TextureManager::texture_map_ = {
-    {PLAYER_ENTITY_ID, PLAYER_TEXTURE},
-    {BULLET_ENTITY_ID, BULLET_TEXTURE},
-    {ENEMY_ENTITY_ID, ENEMY_TEXTURE},
-    {ENEMY_BULLET_ENTITY_ID, ENEMY_BULLET_TEXTURE},
-    {POINTS_ENTITY_ID, POINTS_TEXTURE},
-    {BACKGROUND_TEXTURE_ID, BACKGROUND_TEXTURE},
-    {EXPLOSION_TEXTURE_ID, EXPLOSION_TEXTURE},
-    {FONT_TEXTURE_ID, FONT_TEXTURE}};
-
-SDLRendererSharedPtr TextureManager::renderer_ = nullptr;

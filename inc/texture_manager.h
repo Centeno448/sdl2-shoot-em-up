@@ -20,18 +20,16 @@ struct Texture {
 
 class TextureManager {
  private:
-  static std::vector<Texture> loaded_textures_;
+  inline static std::vector<Texture> loaded_textures_ = {};
 
-  static std::map<std::string, std::string> texture_map_;
-
-  static SDLRendererSharedPtr renderer_;
+  inline static SDLRendererSharedPtr renderer_ = nullptr;
 
  public:
   static SDL_Renderer* const GetRenderer();
 
   static void StaticInit(SDLRendererSharedPtr renderer);
 
-  static SDLTextureSharedPtr LoadTextureById(std::string id);
+  static SDLTextureSharedPtr LoadTexture(std::string id, std::string path);
 
   static SDLTextureSharedPtr GetTextureById(std::string id);
 

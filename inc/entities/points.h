@@ -16,15 +16,15 @@ class Points : public Entity {
 
   std::string GetEntityId() override;
 
-  bool IsTextureLoaded() override;
-
-  void SetTextureLoaded(bool is_loaded) override;
+  void ConfigureEntity() override;
 
   void HandleCollision(EntitySharedPtr collided_with) override;
 
   static EntitySharedPtr Spawn(float x, float y, float dx, int h);
 
  private:
+  void ConfigureTexture();
+
   inline static const std::string entity_id_ = POINTS_ENTITY_ID;
 
   inline static bool is_texture_loaded_ = false;

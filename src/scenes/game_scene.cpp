@@ -29,7 +29,7 @@ void GameScene::Draw() {
 }
 
 void GameScene::Init() {
-  TextureManager::LoadTextureById(EXPLOSION_TEXTURE_ID);
+  TextureManager::LoadTexture(EXPLOSION_TEXTURE_ID, EXPLOSION_TEXTURE);
   World::InitialState();
 };
 
