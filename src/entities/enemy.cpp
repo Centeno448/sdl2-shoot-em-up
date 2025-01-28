@@ -30,15 +30,13 @@ void Enemy::DoLogic() {
   x_ += dx_;
 }
 
-std::string Enemy::GetEntityId() { return texture_id_; }
+std::string Enemy::GetEntityId() { return entity_id_; }
 
 bool Enemy::IsTextureLoaded() { return is_texture_loaded_; }
 
 void Enemy::SetTextureLoaded(bool is_loaded) {
   is_texture_loaded_ = is_loaded;
 };
-
-bool Enemy::is_texture_loaded_ = false;
 
 void Enemy::RegisterEnemy() {
   EntitySharedPtr entity = World::AddEntityToWorld<Enemy>(

@@ -71,15 +71,13 @@ void Player::HandleCollision(EntitySharedPtr collided_with) {
   }
 };
 
-std::string Player::GetEntityId() { return texture_id_; }
+std::string Player::GetEntityId() { return entity_id_; }
 
 bool Player::IsTextureLoaded() { return is_texture_loaded_; }
 
 void Player::SetTextureLoaded(bool is_loaded) {
   is_texture_loaded_ = is_loaded;
 }
-
-bool Player::is_texture_loaded_ = false;
 
 void Player::OnDeath() {
   SoundManager::PlaySoundById(PLAYER_DEATH_SFX_ID, SoundChannel::CH_PLAYER);

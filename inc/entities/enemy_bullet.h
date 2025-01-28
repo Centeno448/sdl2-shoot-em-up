@@ -18,6 +18,6 @@ class EnemyBullet : public Entity {
   void HandleCollision(EntitySharedPtr collided_with) override;
 
  private:
-  inline static const std::string texture_id_ = ENEMY_BULLET_ENTITY_ID;
-  static bool is_texture_loaded_;
+  inline static const std::string entity_id_ = ENEMY_BULLET_ENTITY_ID;
+  inline static bool is_texture_loaded_ = false;
 };

@@ -23,9 +23,9 @@ class Player : public Entity {
   static void RegisterPlayer();
 
  private:
-  inline static const std::string texture_id_ = PLAYER_ENTITY_ID;
+  inline static const std::string entity_id_ = PLAYER_ENTITY_ID;
 
-  static bool is_texture_loaded_;
+  inline static bool is_texture_loaded_ = false;
 
   void Shoot();
 

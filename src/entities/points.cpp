@@ -43,5 +43,3 @@ EntitySharedPtr Points::Spawn(float x, float y, float dx, int h) {
 
   return entity;
 }
-
-bool Points::is_texture_loaded_ = false;

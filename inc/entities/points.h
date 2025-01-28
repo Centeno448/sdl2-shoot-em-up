@@ -27,5 +27,5 @@ class Points : public Entity {
  private:
   inline static const std::string entity_id_ = POINTS_ENTITY_ID;
 
-  static bool is_texture_loaded_;
+  inline static bool is_texture_loaded_ = false;
 };
