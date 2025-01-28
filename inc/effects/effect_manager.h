@@ -21,11 +21,10 @@ class EffectManager {
 
  private:
   static SDL_Renderer* const GetRenderer();
-  static void DrawBackground();
   inline static SDLRendererSharedPtr renderer_ = nullptr;
   inline static int background_x_ = 0;
   inline static std::forward_list<EffectSharedPtr> effects_[MAX_EFFECT_LAYERS] =
-      {{}};
+      {};
 };
 
 template <typename T, typename F>
