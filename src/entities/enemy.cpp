@@ -16,7 +16,7 @@ void Enemy::DoLogic() {
     health_ = 0;
   }
 
-  EntitySharedPtr player = World::GetEntityById("PLYR");
+  EntitySharedPtr player = World::GetEntityById(PLAYER_ENTITY_ID);
 
   if (player != nullptr) {
     if (reload_frames_ <= 0) {
@@ -48,7 +48,7 @@ void Enemy::RegisterEnemy() {
 }
 
 void Enemy::HandleCollision(EntitySharedPtr collided_with) {
-  if (collided_with->GetEntityId() == "BLLT") {
+  if (collided_with->GetEntityId() == BULLET_ENTITY_ID) {
     --health_;
   }
 

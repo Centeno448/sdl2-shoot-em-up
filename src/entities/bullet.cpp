@@ -17,7 +17,7 @@ void Bullet::SetTextureLoaded(bool is_loaded) {
 };
 
 void Bullet::HandleCollision(EntitySharedPtr collided_with) {
-  if (collided_with->GetEntityId() == "ENMY") {
+  if (collided_with->GetEntityId() == ENEMY_ENTITY_ID) {
     --health_;
   }
 };

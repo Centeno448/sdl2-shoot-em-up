@@ -18,7 +18,7 @@ void EnemyBullet::SetTextureLoaded(bool is_loaded) {
 };
 
 void EnemyBullet::HandleCollision(EntitySharedPtr collided_with) {
-  if (collided_with->GetEntityId() == "PLYR") {
+  if (collided_with->GetEntityId() == PLAYER_ENTITY_ID) {
     --health_;
   }
 };

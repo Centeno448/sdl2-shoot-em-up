@@ -29,7 +29,7 @@ void Points::SetTextureLoaded(bool is_loaded) {
 };
 
 void Points::HandleCollision(EntitySharedPtr collided_with) {
-  if (collided_with->GetEntityId() == "PLYR") {
+  if (collided_with->GetEntityId() == PLAYER_ENTITY_ID) {
     --health_ = 0;
     SoundManager::PlaySoundById(POINTS_SFX_ID, SoundChannel::CH_POINTS);
   }

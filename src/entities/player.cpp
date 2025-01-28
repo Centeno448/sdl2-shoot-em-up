@@ -61,12 +61,12 @@ void Player::Shoot() {
 }
 
 void Player::HandleCollision(EntitySharedPtr collided_with) {
-  if (collided_with->GetEntityId() == "ENMY_BLLT") {
+  if (collided_with->GetEntityId() == ENEMY_BULLET_ENTITY_ID) {
     --health_;
     SoundManager::PlaySoundById(PLAYER_HIT_SFX_ID, SoundChannel::CH_PLAYER);
   }
 
-  if (collided_with->GetEntityId() == "POINTS") {
+  if (collided_with->GetEntityId() == POINTS_ENTITY_ID) {
     HUD::IncreaseScore(POINTS_SCORE);
   }
 };
